@@ -1,10 +1,12 @@
-\documentclass[book=true]{jlreq}
+\documentclass[book]{jlreq}
 
 \usepackage{makeidx}
 \usepackage[linkcolor=true]{hyperref}
 
 \title{The Type Theory of Intheo}
 \author{Hexirp}
+
+\makeindex
 
 \begin{document}
 
@@ -22,9 +24,9 @@ Intheo がベースとする型理論は、 Coq が基礎とする帰納的構�
 
 \mainmatter
 
-\part{参考文献}
+\backmatter
 
-\begin{thebibliography}
+\begin{thebibliography}{99}
   \bibitem{cic}
     Inria, CNRS, and contributors.
     \href{https://coq.github.io/doc/v8.13/refman/language/cic.html}{\textit{Typing rules --- Coq 8.13.2 documentation}}.
@@ -36,8 +38,6 @@ Intheo がベースとする型理論は、 Coq が基礎とする帰納的構�
     \href{https://bentnib.org/quantitative-type-theory.html}{\textit{The Syntax and Semantics of Quantitative Type Theory}}.
 \end{thebibliography}
 
-\backmatter
-
-\makeindex
+\printindex
 
 \end{document}
