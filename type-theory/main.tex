@@ -1,12 +1,17 @@
 \documentclass[book]{jlreq}
 
 \usepackage{makeidx}
+\usepackage{color}
 \usepackage[linkcolor=true]{hyperref}
 
-\title{The Type Theory of Intheo}
+\title{Intheo の型理論}
 \author{Hexirp}
 
 \makeindex
+
+\def\——{—\kern-.5\zw—\kern-.5\zw—}
+\newcommand{\bidash}{\——}
+\newcommand{\CIC}{\textsf{CIC}}
 
 \begin{document}
 
@@ -14,15 +19,29 @@
 
 \maketitle
 
-Intheo は、純粋関数型プログラミング言語である。そして、カリー・ハワード対応を利用して定理を証明することも可能である。
-となれば、どのような型理論に基づいているのかという疑問は当然であろう。この文書は、その疑問に答えるだろう。
+Intheo は、純粋関数型プログラミング言語です。そして、カリー・ハワード対応を利用して定理を証明することも
+可能です。となれば、どのような型理論に基づいているのかという疑問は当然です。この文書は、その疑問に答えます。
 
-Intheo がベースとする型理論は、 Coq が基礎とする帰納的構造の可述的計算~\cite{cic} と、
-方形的型理論~\cite{cutt} と、数量的型理論~\cite{qtt} の三つを一まとめにしたものである。
+Intheo がベースとする型理論は、 Coq が基礎とする帰納的構造の計算~\cite{cic} と、方形的型理論~\cite{cutt} と、
+数量的型理論~\cite{qtt} の三つを一まとめにしたものです。
+
+Intheo の設計原理\bidash{}全てを、可能な限り明確に行う\bidash{}は、それが基礎とする型理論にも適用されます。
+この型理論における\index{かたはんてい@型判定}型判定は、 \( Γ \vdash x : T \) の一つしかありません。そして、
+ある空から推論可能な型判定 \( Γ \vdash x : T \) は、それを導く推論木と一対一対応します\bidash{}つまり、
+ある項は、それの型が表す命題を証明する方法を一意に表しています。
 
 \tableofcontents
 
 \mainmatter
+
+\part{帰納的構造の計算}
+
+\index{きのうてきこうぞうのけいさん@帰納的構造の計算}帰納的構造の計算は、構造の計算に帰納型を追加した体系です。
+かなり強力な表現力を持っていて、噂では \( \textsf{ZFC} + \textrm{``There are countably many inaccessible
+cardinals.''} \) と同じ無矛盾性を持つとか言われています。
+
+「帰納的構造の計算」は、 \index{Calculus of Inductive Constructions}``Calculus of Inductive Constructions'' を
+日本語に直訳した言葉です。これは \index{CIC@\CIC}\CIC とも略されます。
 
 \backmatter
 
