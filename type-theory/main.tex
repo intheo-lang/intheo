@@ -1,0 +1,43 @@
+\documentclass[book=true]{jlreq}
+
+\usepackage{makeidx}
+\usepackage[linkcolor=true]{hyperref}
+
+\title{The Type Theory of Intheo}
+\author{Hexirp}
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+Intheo は、純粋関数型プログラミング言語である。そして、カリー・ハワード対応を利用して定理を証明することも可能である。
+となれば、どのような型理論に基づいているのかという疑問は当然であろう。この文書は、その疑問に答えるだろう。
+
+Intheo がベースとする型理論は、 Coq が基礎とする帰納的構造の可述的計算~\cite{cic} と、
+方形的型理論~\cite{cutt} と、数量的型理論~\cite{qtt} の三つを一まとめにしたものである。
+
+\tableofcontents
+
+\mainmatter
+
+\part{参考文献}
+
+\begin{thebibliography}
+  \bibitem{cic}
+    Inria, CNRS, and contributors.
+    \href{https://coq.github.io/doc/v8.13/refman/language/cic.html}{\textit{Typing rules --- Coq 8.13.2 documentation}}.
+  \bibitem{cutt}
+    Cyril Cohen, Thierry Coquand, Simon Huber, and Anders Mörtberg.
+    \textit{Cubical Type Theory: a constructive interpretation of the univalence axiom}.
+  \bibitem{qtt}
+    Robert Atkey.
+    \href{https://bentnib.org/quantitative-type-theory.html}{\textit{The Syntax and Semantics of Quantitative Type Theory}}.
+\end{thebibliography}
+
+\backmatter
+
+\makeindex
+
+\end{document}
