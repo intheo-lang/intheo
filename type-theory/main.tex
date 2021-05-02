@@ -1,6 +1,7 @@
 \documentclass[book]{jlreq}
 
 \usepackage{makeidx}
+\usepackage{bussproofs}
 \usepackage{color}
 \usepackage[colorlinks]{hyperref}
 
@@ -12,6 +13,9 @@
 \def\——{—\kern-.5\zw—\kern-.5\zw—}
 \newcommand{\bidash}{\——}
 \newcommand{\CIC}{\textsf{CIC}}
+\newcommand{\Type}{\mathrm{Type}}
+\newcommand{\Level}{\mathrm{Level}}
+\newcommand{\suc}{\mathrm{suc}}
 
 \begin{document}
 
@@ -42,7 +46,23 @@ Intheo の設計原理\bidash{}全てを、可能な限り明確に行う\bidash
 cardinals.''} \) と同じ無矛盾性を持つとか言われています。
 
 「帰納的構造の計算」は、 \index{Calculus of Inductive Constructions}``Calculus of Inductive Constructions'' を
-日本語に直訳した言葉です。これは \index{CIC@\CIC}\CIC とも略されます。
+日本語に直訳した言葉です。これは \index{CIC@\( \CIC \)}\( \CIC \) とも略されます。
+
+帰納的構造の計算には、\index{うちゅうかいそう@宇宙階層}宇宙階層が必要になります。これは、確か帰納型を含むことへの
+対価だったはずです。
+
+\index{Type@\( \Type \)}\( \Type \) は、一般的な型を表す記号です。 \index{Level@\( \Level \)}\( \Level \) は
+宇宙レベルの型を表す記号です。 \( i : \Level \) である時 \( \Type _ {i} \) と書き、これが一般的な形です。
+
+\begin{figure}[h]
+  \centering
+  \begin{prooftree}
+    \AxiomC{\( \)}
+    \UnaryInfC{\( i : \Level \vdash \Type _ {i} : \Type _ {\suc ( i )} \)}
+  \end{prooftree}
+  \caption{\( \Type _ {i} \) の型}
+  \label{cic-type-type}
+\end{figure}
 
 \backmatter
 
