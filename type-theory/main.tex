@@ -15,7 +15,8 @@
 \newcommand{\CIC}{\textsf{CIC}}
 \newcommand{\Type}{\mathrm{Type}}
 \newcommand{\Level}{\mathrm{Level}}
-\newcommand{\suc}{\mathrm{suc}}
+\newcommand{\zero}{\mathrm{zero}}
+\newcommand{\suc}{\mathrm{succ}}
 
 \begin{document}
 
@@ -49,31 +50,53 @@ cardinals.''} \) と同じ無矛盾性を持つとか言われています。
 日本語に直訳した言葉です。これは \index{CIC@\( \CIC \)}\( \CIC \) とも略されます。
 
 帰納的構造の計算には、\index{うちゅうかいそう@宇宙階層}宇宙階層が必要になります。これは、確か帰納型を含むことへの
-対価だったはずです。
-
-\index{Type@\( \Type \)}\( \Type \) は、一般的な型を表す記号です。 \index{Level@\( \Level \)}\( \Level \) は
-宇宙レベルの型を表す記号です。 \( i : \Level \) である時 \( \Type _ {i} \) と書き、これが一般的な形です。
+対価だったはずです。型判定 \ref{cic-type-zero} と型判定 \ref{cic-type-succ} が取り敢えず存在します。
 
 \begin{figure}[h]
   \centering
   \begin{prooftree}
     \AxiomC{\( \)}
-    \UnaryInfC{\( i : \Level \vdash \Type _ {i} : \Type _ {\suc ( i )} \)}
+    \UnaryInfC{\( \vdash \zero : \Level \)}
   \end{prooftree}
-  \caption{\( \Type _ {i} \) の型}
-  \label{cic-type-type}
+  \caption{\( \zero \) の型}
+  \label{cic-type-zero}
 \end{figure}
-
-この型理論は、\index{ぜんしょうがた@全称型}全称型のみを持ちます。
 
 \begin{figure}[h]
   \centering
   \begin{prooftree}
-    \AxiomC{\( \Gamma, \, i : \Level, \, A : \Type _ {i}, \, x : A \vdash B : \Type _ {i} \)}
-    \UnaryInfC{\( \Gamma \vdash ( ( x : A ) \to B ) : \Type _ {i} \)}
+    \AxiomC{\( \)}
+    \UnaryInfC{\( \vdash \suc : \Level \to \Level \)}
   \end{prooftree}
-  \caption{\( \Type _ {i} \) の型}
-  \label{cic-type-}
+  \caption{\( \suc \) の型}
+  \label{cic-type-succ}
+\end{figure}
+
+\index{Type@\( \Type \)}\( \Type \) は、型の型を表す記号です。 \index{Level@\( \Level \)}\( \Level \) は
+宇宙レベルの型を表す記号です。型判定 \ref{cic-type-type} が取り敢えず存在します。
+
+\begin{figure}[h]
+  \centering
+  \begin{prooftree}
+    \AxiomC{\( \)}
+    \UnaryInfC{\( \vdash \Type : ( i : \Level ) \to \Type ( \suc ( i ) ) \)}
+  \end{prooftree}
+  \caption{\( \Type \) の型}
+  \label{cic-type-type}
+\end{figure}
+
+この型理論は、\index{いぞんちょくせき@依存直積}依存直積のみを持ちます。依存直積は、そのまま
+\index{ぜんしょうかた@全称型}全称型となります。\index{そんざいかた@存在型}存在型などは
+帰納型により定義されます。型判定 \ref{cic-type-forall-1} が存在します。
+
+\begin{figure}[h]
+  \centering
+  \begin{prooftree}
+    \AxiomC{\( \Gamma, \, i : \Level, \, A : \Type ( i ), \, x : A \vdash B : \Type ( i ) \)}
+    \UnaryInfC{\( \Gamma \vdash ( ( x : A ) \to B ) : \Type ( i ) \)}
+  \end{prooftree}
+  \caption{依存直積の型 1}
+  \label{cic-type-forall-1}
 \end{figure}
 
 \backmatter
