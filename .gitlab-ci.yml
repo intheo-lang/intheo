@@ -15,6 +15,7 @@ pages:
   before_script:
     - apk update
     - apk --update add texlive
+    - env PATH=/usr/local/texlive/bin/x86_64-linuxmusl:$PATH
     - tlmgr install collection-latexextra collection-luatex collection-langjapanese
   script:
     - mkdir public/
