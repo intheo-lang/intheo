@@ -1,0 +1,26 @@
+image: texlive/texlive
+
+build-job:
+  stage: build
+  script:
+    - ':'
+
+test-job:
+  stage: test
+  script:
+    - ':'
+
+pages:
+  stage: deploy
+  script:
+    - mkdir public/
+    - cd type-theory/
+    - lualatex main
+    - lualatex main
+    - cd ../
+    - cp type-theory/main.pdf public/type-theory.pdf
+  artifacts:
+    paths:
+      - public/
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
