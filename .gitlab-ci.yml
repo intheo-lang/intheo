@@ -13,7 +13,7 @@ test-job:
 pages:
   stage: deploy
   before_script:
-    - apk install texlive
+    - apk add texlive
     - tlmgr install collection-latexextra collection-luatex collection-langjapanese
   script:
     - mkdir public/
