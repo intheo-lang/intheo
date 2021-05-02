@@ -1,4 +1,4 @@
-image: node:alpine
+image: paperist/alpine-texlive-ja:latest
 
 build-job:
   stage: build
@@ -12,11 +12,6 @@ test-job:
 
 pages:
   stage: deploy
-  before_script:
-    - apk update
-    - apk --update add texlive
-    - PATH=/usr/local/texlive/bin/x86_64-linuxmusl:$PATH
-    - tlmgr install collection-latexextra collection-luatex collection-langjapanese
   script:
     - mkdir public/
     - cd type-theory/
