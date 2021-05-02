@@ -1,4 +1,4 @@
-image: texlive/texlive
+image: node:alpine
 
 build-job:
   stage: build
@@ -12,6 +12,9 @@ test-job:
 
 pages:
   stage: deploy
+  before_script:
+    - apk install texlive
+    - tlmgr install collection-latexextra collection-luatex collection-langjapanese
   script:
     - mkdir public/
     - cd type-theory/
