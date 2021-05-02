@@ -64,6 +64,18 @@ cardinals.''} \) と同じ無矛盾性を持つとか言われています。
   \label{cic-type-type}
 \end{figure}
 
+この型理論は、\index{ぜんしょうがた@全称型}全称型のみを持ちます。
+
+\begin{figure}[h]
+  \centering
+  \begin{prooftree}
+    \AxiomC{\( \Gamma, \, i : \Level, \, A : \Type _ {i}, \, x : A \vdash B : \Type _ {i} \)}
+    \UnaryInfC{\( \Gamma \vdash ( ( x : A ) \to B ) : \Type _ {i} \)}
+  \end{prooftree}
+  \caption{\( \Type _ {i} \) の型}
+  \label{cic-type-}
+\end{figure}
+
 \backmatter
 
 \begin{thebibliography}{99}
