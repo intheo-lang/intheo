@@ -1,6 +1,7 @@
 \documentclass[book]{jlreq}
 
 \usepackage{makeidx}
+\usepackage{bussproofs}
 \usepackage{color}
 \usepackage[colorlinks]{hyperref}
 
@@ -12,6 +13,10 @@
 \def\——{—\kern-.5\zw—\kern-.5\zw—}
 \newcommand{\bidash}{\——}
 \newcommand{\CIC}{\textsf{CIC}}
+\newcommand{\Type}{\mathrm{Type}}
+\newcommand{\Level}{\mathrm{Level}}
+\newcommand{\zero}{\mathrm{zero}}
+\newcommand{\suc}{\mathrm{succ}}
 
 \begin{document}
 
@@ -42,7 +47,57 @@ Intheo の設計原理\bidash{}全てを、可能な限り明確に行う\bidash
 cardinals.''} \) と同じ無矛盾性を持つとか言われています。
 
 「帰納的構造の計算」は、 \index{Calculus of Inductive Constructions}``Calculus of Inductive Constructions'' を
-日本語に直訳した言葉です。これは \index{CIC@\CIC}\CIC とも略されます。
+日本語に直訳した言葉です。これは \index{CIC@\( \CIC \)}\( \CIC \) とも略されます。
+
+帰納的構造の計算には、\index{うちゅうかいそう@宇宙階層}宇宙階層が必要になります。これは、確か帰納型を含むことへの
+対価だったはずです。型判定 \ref{cic-type-zero} と型判定 \ref{cic-type-succ} が取り敢えず存在します。
+
+\begin{figure}[h]
+  \centering
+  \begin{prooftree}
+    \AxiomC{\( \)}
+    \UnaryInfC{\( \vdash \zero : \Level \)}
+  \end{prooftree}
+  \caption{\( \zero \) の型}
+  \label{cic-type-zero}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \begin{prooftree}
+    \AxiomC{\( \)}
+    \UnaryInfC{\( \vdash \suc : \Level \to \Level \)}
+  \end{prooftree}
+  \caption{\( \suc \) の型}
+  \label{cic-type-succ}
+\end{figure}
+
+\index{Type@\( \Type \)}\( \Type \) は、型の型を表す記号です。 \index{Level@\( \Level \)}\( \Level \) は
+宇宙レベルの型を表す記号です。型判定 \ref{cic-type-type} が取り敢えず存在します。
+
+\begin{figure}[h]
+  \centering
+  \begin{prooftree}
+    \AxiomC{\( \)}
+    \UnaryInfC{\( \vdash \Type : ( i : \Level ) \to \Type ( \suc ( i ) ) \)}
+  \end{prooftree}
+  \caption{\( \Type \) の型}
+  \label{cic-type-type}
+\end{figure}
+
+この型理論は、\index{いぞんちょくせき@依存直積}依存直積のみを持ちます。依存直積は、そのまま
+\index{ぜんしょうかた@全称型}全称型となります。\index{そんざいかた@存在型}存在型などは
+帰納型により定義されます。型判定 \ref{cic-type-forall-1} が存在します。
+
+\begin{figure}[h]
+  \centering
+  \begin{prooftree}
+    \AxiomC{\( \Gamma, \, i : \Level, \, A : \Type ( i ), \, x : A \vdash B : \Type ( i ) \)}
+    \UnaryInfC{\( \Gamma \vdash ( ( x : A ) \to B ) : \Type ( i ) \)}
+  \end{prooftree}
+  \caption{依存直積の型 1}
+  \label{cic-type-forall-1}
+\end{figure}
 
 \backmatter
 
