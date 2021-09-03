@@ -1,17 +1,17 @@
 stages:
   - build
 
-rust-latest:
+intheo-latest:
   stage: build
   image: rust:latest
   script:
+    - cd intheo/
     - cargo build --verbose
-    - cargo test --verbose
 
-rust-nightly:
+intheo-nightly:
   stage: build
   image: rustlang/rust:nightly
   script:
+    - cd intheo/
     - cargo build --verbose
-    - cargo test --verbose
   allow_failure: true
