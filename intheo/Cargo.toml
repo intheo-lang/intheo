@@ -1,7 +1,9 @@
 [package]
 name = "intheo"
 version = "0.1.0"
+authors = ["Hexirp <hexirp@gmail.com>"]
 edition = "2018"
+description = "A programming language"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
