@@ -71,3 +71,34 @@ pub fn kind(net : Net, address : Address) -> Slot
   {
     slot(vector::get(& net.nodes, port(address, Slot { id : 3 }).id as usize).clone())
   }
+
+/// 2 つの `Port` を繋ぐ。
+pub fn link(net : Net, port_a : Port, port_b : Port) -> Net
+  {
+    let (port_a_1, port_a_2) = dup(port_a)
+  ;
+    let (port_b_1, port_b_2) = dup(port_b)
+  ;
+    Net
+      {
+        nodes
+          :
+            vector::set
+              (
+                vector::set
+                  (
+                    net.nodes
+                  ,
+                    port_a_1.id as usize
+                  ,
+                    port_b_1
+                )
+              ,
+                port_b_2.id as usize
+              ,
+                port_a_2
+              )
+      ,
+        reuse : net.reuse
+      }
+  }
