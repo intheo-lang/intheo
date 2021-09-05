@@ -29,6 +29,9 @@ pub const CON : Slot = Slot { id : 1 };
 /// `10` である。
 pub const FAN : Slot = Slot { id : 2 };
 
+/// `11` である。
+pub const KIND : Slot = Slot { id : 3 };
+
 /// `Port` である。 `Address` と `Slot` のペアである。
 #[derive(Clone, Debug)]
 pub struct Port { pub id : u32 }
@@ -69,7 +72,7 @@ pub fn enter(net : Net, port : Port) -> Port
 /// `Address` の `Slot` を返す。
 pub fn kind(net : Net, address : Address) -> Slot
   {
-    slot(vector::get(& net.nodes, port(address, Slot { id : 3 }).id as usize).clone())
+    slot(vector::get(& net.nodes, port(address, KIND).id as usize).clone())
   }
 
 /// 2 つの `Port` を繋ぐ。
