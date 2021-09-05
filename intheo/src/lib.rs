@@ -65,3 +65,9 @@ pub fn enter(net : Net, port : Port) -> Port
   {
     vector::get(& net.nodes, port.id as usize).clone()
   }
+
+/// `Address` の `Slot` を返す。
+pub fn kind(net : Net, address : Address) -> Slot
+  {
+    slot(vector::get(& net.nodes, port(address, Slot { id : 3}).id as usize).clone())
+  }
