@@ -15,3 +15,13 @@ pub fn set<A>(mut vector : Vector<A>, index : usize, x : A) -> Vector<A>
   ;
     vector
   }
+
+pub fn pop<A>(mut vector : Vector<A>) -> Option<(A, Vector<A>)>
+  {
+    match (& mut vector.value).pop()
+      {
+        Some(vector_p) => Some((vector_p, vector))
+      ,
+        None => None
+      }
+  }
