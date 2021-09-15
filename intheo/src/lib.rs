@@ -13,12 +13,14 @@ pub fn dup<T>(value : T) -> (T, T) where T : Clone
   }
 
 /// アドレスである。ノードへのポインタを抽象的に表す。
+#[derive(Clone, Debug)]
 pub struct Address
   {
     value : usize
   }
 
 /// スロットである。
+#[derive(Clone, Debug)]
 pub enum Slot
   {
     SLOT_1
@@ -29,6 +31,7 @@ pub enum Slot
   }
 
 /// ポートである。
+#[derive(Clone, Debug)]
 pub struct Port
   {
     pub address : Address
@@ -37,6 +40,7 @@ pub struct Port
   }
 
 /// カインドである。
+#[derive(Clone, Debug)]
 pub enum Kind
   {
     ERA
@@ -47,6 +51,7 @@ pub enum Kind
   }
 
 /// ノードである。
+#[derive(Clone, Debug)]
 pub struct Node
   {
     pub slot_1 : Port
@@ -62,6 +67,7 @@ pub struct Node
 ///
 /// [1]: https://qnighy.hatenablog.com/entry/2017/04/28/070000
 /// [2]: https://qiita.com/qnighy/items/c3cb525e7f69bee40bf6
+#[derive(Clone, Debug)]
 pub struct Net
   {
     pub nodes : Vec<Node>
