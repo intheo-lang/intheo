@@ -74,3 +74,22 @@ pub struct Net
   ,
     pub reuse : Vec<Node>
   }
+
+/// `Port` の参照先を求める。
+pub fn enter<'a>(net : & 'a Net, port : & 'a Port) -> & 'a Port
+  {
+    let Port { address, slot } = port
+  ;
+    let node = & net.nodes[address.value]
+  ;
+    let Node { slot_1, slot_2, slot_3, kind } = node
+  ;
+    match slot
+      {
+        Slot::SLOT_1 => slot_1
+      ,
+        Slot::SLOT_2 => slot_2
+      ,
+        Slot::SLOT_3 => slot_3
+      }
+  }
