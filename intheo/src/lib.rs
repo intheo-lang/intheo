@@ -84,9 +84,10 @@ pub fn enter<'a>(net : & 'a Net, port : & 'a Port) -> & 'a Port
   ;
     let & Address { value : ref address_value } = address
   ;
-    let node = & nodes[address_value.clone()]
-  ;
-    let & Node { slot_1 : ref slot_1, slot_2 : ref slot_2, slot_3 : ref slot_3, kind : _ } = node
+    let
+        Node { slot_1 : ref slot_1, slot_2 : ref slot_2, slot_3 : ref slot_3, kind : _ }
+      =
+        nodes[address_value.clone()]
   ;
     match slot
       {
@@ -105,9 +106,10 @@ pub fn kind<'a>(net : & 'a Net, address : & 'a Address) -> & 'a Kind
   ;
     let & Address { value : ref address_value } = address
   ;
-    let node = & nodes[address_value.clone()]
-  ;
-    let & Node { slot_1 : _, slot_2 : _, slot_3 : _, kind : ref kind } = node
+    let
+        Node { slot_1 : _, slot_2 : _, slot_3 : _, kind : ref kind }
+      =
+        nodes[address_value.clone()]
   ;
     kind
   }
