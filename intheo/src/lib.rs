@@ -80,7 +80,9 @@ pub fn enter<'a>(net : & 'a Net, port : & 'a Port) -> & 'a Port
   {
     let & Port { address : ref address, slot : ref slot } = port
   ;
-    let & ref node = & net.nodes[address.value]
+    let & Address { value : ref address_value } = address
+  ;
+    let & ref node = & net.nodes[address_value.clone()]
   ;
     let & Node { slot_1 : ref slot_1, slot_2 : ref slot_2, slot_3 : ref slot_3, kind : ref kind } = node
   ;
