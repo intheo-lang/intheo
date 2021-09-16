@@ -12,6 +12,12 @@ pub fn dup<T>(value : T) -> (T, T) where T : Clone
     (new_value_1, new_value_2)
   }
 
+/// 更新する。
+pub fn upd<T>(pointer : & mut T, value : T) -> ()
+  {
+    * pointer = value
+  }
+
 /// アドレスである。ノードへのポインタを抽象的に表す。
 #[derive(Clone, Debug)]
 pub struct Address
@@ -154,11 +160,11 @@ pub fn kind<'a, 'b>(net : & 'a Net, address : & 'b Address) -> & 'a Kind
     ;
       match slot_a
         {
-          & Slot::SLOT_1 => * slot_1_a = port_b.clone()
+          & Slot::SLOT_1 => upd(slot_1_a, port_b.clone())
         ,
-          & Slot::SLOT_2 => * slot_2_a = port_b.clone()
+          & Slot::SLOT_2 => upd(slot_2_a, port_b.clone())
         ,
-          & Slot::SLOT_3 => * slot_3_a = port_b.clone()
+          & Slot::SLOT_3 => upd(slot_3_a, port_b.clone())
         }
     ;
       let
@@ -177,11 +183,11 @@ pub fn kind<'a, 'b>(net : & 'a Net, address : & 'b Address) -> & 'a Kind
     ;
       match slot_b
         {
-          & Slot::SLOT_1 => * slot_1_b = port_a.clone()
+          & Slot::SLOT_1 => upd(slot_1_b, port_a.clone())
         ,
-          & Slot::SLOT_2 => * slot_2_b = port_a.clone()
+          & Slot::SLOT_2 => upd(slot_2_b, port_a.clone())
         ,
-          & Slot::SLOT_3 => * slot_3_b = port_a.clone()
+          & Slot::SLOT_3 => upd(slot_3_b, port_a.clone())
         }
     ;
       Net { nodes : nodes, reuse : reuse }
