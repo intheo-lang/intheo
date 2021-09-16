@@ -122,3 +122,67 @@ pub fn kind<'a, 'b>(net : & 'a Net, address : & 'b Address) -> & 'a Kind
   ;
     kind
   }
+
+  /// 二つの `Port` を繋ぎ合わせる。
+  pub fn link(net : Net, port_a : & Port, port_b : & Port) -> Net
+    {
+      let Net { nodes : mut nodes, reuse : reuse } = net
+    ;
+      let & Port { address : ref address_a, slot : ref slot_a } = port_a
+    ;
+      let & Address { value : ref address_value_a } = address_a
+    ;
+      let & Port { address : ref address_b, slot : ref slot_b } = port_b
+    ;
+      let & Address { value : ref address_value_b } = address_b
+    ;
+      let ref_mut_nodes = & mut nodes
+    ;
+      let
+          Node
+            {
+              slot_1 : ref mut slot_1_a
+            ,
+              slot_2 : ref mut slot_2_a
+            ,
+              slot_3 : ref mut slot_3_a
+            ,
+              kind : _
+            }
+        =
+          ref_mut_nodes[address_value_a.clone()]
+    ;
+      match slot_a
+        {
+          & Slot::SLOT_1 => * slot_1_a = port_b.clone()
+        ,
+          & Slot::SLOT_2 => * slot_2_a = port_b.clone()
+        ,
+          & Slot::SLOT_3 => * slot_3_a = port_b.clone()
+        }
+    ;
+      let
+          Node
+            {
+              slot_1 : ref mut slot_1_b
+            ,
+              slot_2 : ref mut slot_2_b
+            ,
+              slot_3 : ref mut slot_3_b
+            ,
+              kind : _
+            }
+        =
+          ref_mut_nodes[address_value_b.clone()]
+    ;
+      match slot_b
+        {
+          & Slot::SLOT_1 => * slot_1_b = port_a.clone()
+        ,
+          & Slot::SLOT_2 => * slot_2_b = port_a.clone()
+        ,
+          & Slot::SLOT_3 => * slot_3_b = port_a.clone()
+        }
+    ;
+      Net { nodes : nodes, reuse : reuse }
+    }
