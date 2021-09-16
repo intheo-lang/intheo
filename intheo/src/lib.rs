@@ -82,7 +82,7 @@ pub fn enter<'a>(net : & 'a Net, port : & 'a Port) -> & 'a Port
   ;
     let & ref node = & net.nodes[address.value]
   ;
-    let Node { slot_1 : ref slot_1, slot_2 : ref slot_2, slot_3 : ref slot_3, kind : ref kind } = node
+    let & Node { slot_1 : ref slot_1, slot_2 : ref slot_2, slot_3 : ref slot_3, kind : ref kind } = node
   ;
     match slot
       {
