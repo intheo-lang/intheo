@@ -78,7 +78,7 @@ pub struct Net
 /// `Port` の参照先を取得する。
 pub fn enter<'a>(net : & 'a Net, port : & 'a Port) -> & 'a Port
   {
-    let & Net { nodes : ref nodes, reuse : ref reuse } = net
+    let & Net { nodes : ref nodes, reuse : _ } = net
   ;
     let & Port { address : ref address, slot : ref slot } = port
   ;
@@ -86,7 +86,7 @@ pub fn enter<'a>(net : & 'a Net, port : & 'a Port) -> & 'a Port
   ;
     let node = & nodes[address_value.clone()]
   ;
-    let & Node { slot_1 : ref slot_1, slot_2 : ref slot_2, slot_3 : ref slot_3, kind : ref kind } = node
+    let & Node { slot_1 : ref slot_1, slot_2 : ref slot_2, slot_3 : ref slot_3, kind : _ } = node
   ;
     match slot
       {
@@ -101,13 +101,13 @@ pub fn enter<'a>(net : & 'a Net, port : & 'a Port) -> & 'a Port
 /// `Address` の参照先のカインドを取得する。
 pub fn kind<'a>(net : & 'a Net, address : & 'a Address) -> & 'a Kind
   {
-    let & Net { nodes : ref nodes, reuse : ref reuse } = net
+    let & Net { nodes : ref nodes, reuse : _ } = net
   ;
     let & Address { value : ref address_value } = address
   ;
     let node = & nodes[address_value.clone()]
   ;
-    let & Node { slot_1 : ref slot_1, slot_2 : ref slot_2, slot_3 : ref slot_3, kind : ref kind } = node
+    let & Node { slot_1 : _, slot_2 : _, slot_3 : _, kind : ref kind } = node
   ;
     kind
   }
