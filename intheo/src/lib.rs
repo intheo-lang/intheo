@@ -78,18 +78,18 @@ pub struct Net
 /// `Port` の参照先を求める。
 pub fn enter<'a>(net : & 'a Net, port : & 'a Port) -> & 'a Port
   {
-    let Port { address, slot } = port
+    let & Port { address : ref address, slot : ref slot } = port
   ;
-    let node = & net.nodes[address.value]
+    let & ref node = & net.nodes[address.value]
   ;
-    let Node { slot_1, slot_2, slot_3, kind } = node
+    let Node { slot_1 : ref slot_1, slot_2 : ref slot_2, slot_3 : ref slot_3, kind : ref kind } = node
   ;
     match slot
       {
-        Slot::SLOT_1 => slot_1
+        & Slot::SLOT_1 => slot_1
       ,
-        Slot::SLOT_2 => slot_2
+        & Slot::SLOT_2 => slot_2
       ,
-        Slot::SLOT_3 => slot_3
+        & Slot::SLOT_3 => slot_3
       }
   }
