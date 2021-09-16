@@ -95,3 +95,15 @@ pub fn enter<'a>(net : & 'a Net, port : & 'a Port) -> & 'a Port
         & Slot::SLOT_3 => slot_3
       }
   }
+
+/// `Address` の参照先のカインドを求める。
+pub fn kind<'a>(net : & 'a Net, address : & 'a Address) -> & 'a Kind
+  {
+    let & Address { value : ref address_value } = address
+  ;
+    let node = & net.nodes[address_value.clone()]
+  ;
+    let & Node { slot_1 : ref slot_1, slot_2 : ref slot_2, slot_3 : ref slot_3, kind : ref kind } = node
+  ;
+    kind
+  }
