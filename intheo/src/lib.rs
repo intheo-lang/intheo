@@ -75,7 +75,7 @@ pub struct Net
     pub reuse : Vec<Node>
   }
 
-/// `Port` の参照先を求める。
+/// `Port` の参照先を取得する。
 pub fn enter<'a>(net : & 'a Net, port : & 'a Port) -> & 'a Port
   {
     let & Port { address : ref address, slot : ref slot } = port
@@ -96,7 +96,7 @@ pub fn enter<'a>(net : & 'a Net, port : & 'a Port) -> & 'a Port
       }
   }
 
-/// `Address` の参照先のカインドを求める。
+/// `Address` の参照先のカインドを取得する。
 pub fn kind<'a>(net : & 'a Net, address : & 'a Address) -> & 'a Kind
   {
     let & Address { value : ref address_value } = address
