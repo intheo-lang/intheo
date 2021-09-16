@@ -78,11 +78,13 @@ pub struct Net
 /// `Port` の参照先を取得する。
 pub fn enter<'a>(net : & 'a Net, port : & 'a Port) -> & 'a Port
   {
+    let & Net { nodes : ref nodes, reuse : ref reuse } = net
+  ;
     let & Port { address : ref address, slot : ref slot } = port
   ;
     let & Address { value : ref address_value } = address
   ;
-    let node = & net.nodes[address_value.clone()]
+    let node = & nodes[address_value.clone()]
   ;
     let & Node { slot_1 : ref slot_1, slot_2 : ref slot_2, slot_3 : ref slot_3, kind : ref kind } = node
   ;
@@ -99,9 +101,11 @@ pub fn enter<'a>(net : & 'a Net, port : & 'a Port) -> & 'a Port
 /// `Address` の参照先のカインドを取得する。
 pub fn kind<'a>(net : & 'a Net, address : & 'a Address) -> & 'a Kind
   {
+    let & Net { nodes : ref nodes, reuse : ref reuse } = net
+  ;
     let & Address { value : ref address_value } = address
   ;
-    let node = & net.nodes[address_value.clone()]
+    let node = & nodes[address_value.clone()]
   ;
     let & Node { slot_1 : ref slot_1, slot_2 : ref slot_2, slot_3 : ref slot_3, kind : ref kind } = node
   ;
