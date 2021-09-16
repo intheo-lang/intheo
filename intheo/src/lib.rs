@@ -76,7 +76,7 @@ pub struct Net
   }
 
 /// `Port` の参照先を取得する。
-pub fn enter<'a>(net : & 'a Net, port : & 'a Port) -> & 'a Port
+pub fn enter<'a, 'b>(net : & 'a Net, port : & 'b Port) -> & 'a Port
   {
     let & Net { nodes : ref nodes, reuse : _ } = net
   ;
@@ -100,7 +100,7 @@ pub fn enter<'a>(net : & 'a Net, port : & 'a Port) -> & 'a Port
   }
 
 /// `Address` の参照先のカインドを取得する。
-pub fn kind<'a>(net : & 'a Net, address : & 'a Address) -> & 'a Kind
+pub fn kind<'a, 'b>(net : & 'a Net, address : & 'b Address) -> & 'a Kind
   {
     let & Net { nodes : ref nodes, reuse : _ } = net
   ;
