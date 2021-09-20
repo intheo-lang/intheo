@@ -132,7 +132,7 @@ pub fn kind<'a, 'b>(net : & 'a Net, address : & 'b Address) -> & 'a Kind
   }
 
 /// 二つの `Port` を繋ぎ合わせる。
-pub fn link(mut net : Net, port_a : & Port, port_b : & Port) -> Net
+pub fn link(net : Net, port_a : & Port, port_b : & Port) -> Net
   {
     let Net { nodes : mut nodes, reuse : reuse } = net
   ;
