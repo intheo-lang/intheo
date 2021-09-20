@@ -194,3 +194,40 @@ pub fn link(net : Net, port_a : & Port, port_b : & Port) -> Net
   ;
     Net { nodes : nodes, reuse : reuse }
   }
+
+/// `Node` を新しく確保する。
+pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
+  {
+    let Net { nodes : mut nodes, reuse : mut reuse } = net
+  ;
+    match (& mut reuse).pop()
+      {
+          Some(address)
+        =>
+          address
+      ,
+          None
+        =>
+          {
+            let address = Address { value : (& nodes).len() }
+          ;
+            let
+                node
+              =
+                Node
+                  {
+                    slot_1 : Port { address : address, slot : Slot::SLOT_1 }
+                  ,
+                    slot_2 : Port { address : address, slot : Slot::SLOT_2 }
+                  ,
+                    slot_3 : Port { address : address, slot : Slot::SLOT_3 }
+                  ,
+                    kind : kind
+                  }
+          ;
+            (& mut nodes).push(node)
+          ;
+            address
+          }
+      }
+  }
