@@ -1,3 +1,5 @@
+#![allow(non_shorthand_field_patterns)]
+
 pub mod vector;
 
 /// 複製する。
