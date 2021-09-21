@@ -221,7 +221,7 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
                     kind : kind
                   }
           ;
-            upd((& mut nodes)[address_value], node)
+            upd(& mut (& mut nodes)[address_value], node)
           ;
             (net, address)
           }
