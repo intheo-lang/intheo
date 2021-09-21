@@ -204,7 +204,27 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
       {
           Some(address)
         =>
-          address
+          {
+            let Address { value : address_value } = address
+          ;
+            let
+                node
+              =
+                Node
+                  {
+                    slot_1 : Port { address : address, slot : Slot::SLOT_1 }
+                  ,
+                    slot_2 : Port { address : address, slot : Slot::SLOT_2 }
+                  ,
+                    slot_3 : Port { address : address, slot : Slot::SLOT_3 }
+                  ,
+                    kind : kind
+                  }
+          ;
+            upd((& mut nodes)[address_value], node)
+          ;
+            (net, address)
+          }
       ,
           None
         =>
@@ -227,7 +247,7 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
           ;
             (& mut nodes).push(node)
           ;
-            address
+            (net, address)
           }
       }
   }
