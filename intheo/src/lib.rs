@@ -212,11 +212,11 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
               =
                 Node
                   {
-                    slot_1 : Port { address : address, slot : Slot::SLOT_1 }
+                    slot_1 : Port { address : (& address).clone(), slot : Slot::SLOT_1 }
                   ,
-                    slot_2 : Port { address : address, slot : Slot::SLOT_2 }
+                    slot_2 : Port { address : (& address).clone(), slot : Slot::SLOT_2 }
                   ,
-                    slot_3 : Port { address : address, slot : Slot::SLOT_3 }
+                    slot_3 : Port { address : (& address).clone(), slot : Slot::SLOT_3 }
                   ,
                     kind : kind
                   }
@@ -236,11 +236,11 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
               =
                 Node
                   {
-                    slot_1 : Port { address : address, slot : Slot::SLOT_1 }
+                    slot_1 : Port { address : (& address).clone(), slot : Slot::SLOT_1 }
                   ,
-                    slot_2 : Port { address : address, slot : Slot::SLOT_2 }
+                    slot_2 : Port { address : (& address).clone(), slot : Slot::SLOT_2 }
                   ,
-                    slot_3 : Port { address : address, slot : Slot::SLOT_3 }
+                    slot_3 : Port { address : (& address).clone(), slot : Slot::SLOT_3 }
                   ,
                     kind : kind
                   }
