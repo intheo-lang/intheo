@@ -80,7 +80,7 @@ pub struct Net
   {
     pub nodes : Vec<Node>
   ,
-    pub reuse : Vec<Node>
+    pub reuse : Vec<Address>
   }
 
 /// `Port` の参照先を取得する。
@@ -193,4 +193,61 @@ pub fn link(net : Net, port_a : & Port, port_b : & Port) -> Net
       }
   ;
     Net { nodes : nodes, reuse : reuse }
+  }
+
+/// `Node` を新しく確保する。
+pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
+  {
+    let Net { nodes : mut nodes, reuse : mut reuse } = net
+  ;
+    match (& mut reuse).pop()
+      {
+          Some(address)
+        =>
+          {
+            let Address { value : address_value } = address
+          ;
+            let
+                node
+              =
+                Node
+                  {
+                    slot_1 : Port { address : (& address).clone(), slot : Slot::SLOT_1 }
+                  ,
+                    slot_2 : Port { address : (& address).clone(), slot : Slot::SLOT_2 }
+                  ,
+                    slot_3 : Port { address : (& address).clone(), slot : Slot::SLOT_3 }
+                  ,
+                    kind : kind
+                  }
+          ;
+            upd(& mut (& mut nodes)[address_value], node)
+          ;
+            (Net { nodes : nodes, reuse : reuse }, address)
+          }
+      ,
+          None
+        =>
+          {
+            let address = Address { value : (& nodes).len() }
+          ;
+            let
+                node
+              =
+                Node
+                  {
+                    slot_1 : Port { address : (& address).clone(), slot : Slot::SLOT_1 }
+                  ,
+                    slot_2 : Port { address : (& address).clone(), slot : Slot::SLOT_2 }
+                  ,
+                    slot_3 : Port { address : (& address).clone(), slot : Slot::SLOT_3 }
+                  ,
+                    kind : kind
+                  }
+          ;
+            (& mut nodes).push(node)
+          ;
+            (Net { nodes : nodes, reuse : reuse }, address)
+          }
+      }
   }
