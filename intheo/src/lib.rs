@@ -223,7 +223,7 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
           ;
             upd(& mut (& mut nodes)[address_value], node)
           ;
-            (net, address)
+            (Net { nodes : nodes, reuse : reuse }, address)
           }
       ,
           None
@@ -247,7 +247,7 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
           ;
             (& mut nodes).push(node)
           ;
-            (net, address)
+            (Net { nodes : nodes, reuse : reuse }, address)
           }
       }
   }
