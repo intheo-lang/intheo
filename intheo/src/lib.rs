@@ -80,7 +80,7 @@ pub struct Net
   {
     pub nodes : Vec<Node>
   ,
-    pub reuse : Vec<Node>
+    pub reuse : Vec<Address>
   }
 
 /// `Port` の参照先を取得する。
