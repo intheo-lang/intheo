@@ -4,7 +4,7 @@
 #[derive(Clone, Debug)]
 pub struct Effect<T>
   {
-    value : T
+    pub value : T
   }
 
 impl<T> Effect<T> {
