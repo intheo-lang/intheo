@@ -62,9 +62,9 @@ pub struct Node
 #[derive(Clone, Debug)]
 pub struct Net
   {
-    pub nodes : Vec<Node>
+    pub nodes : vector::Vector<Node>
   ,
-    pub reuse : Vec<Address>
+    pub reuse : vector::Vector<Address>
   }
 
 /// `Port` の参照先を取得する。
