@@ -9,7 +9,7 @@ pub struct Effect<T>
 
 impl<T> Effect<T> {
   /// 値を取り出す。
-  fn run(self) -> T
+  pub fn run(self) -> T
     {
       let Effect { value : self_value } = self
     ;
