@@ -23,19 +23,14 @@ pub fn get<A>(vector : Vector<& A>, index : usize) -> & A
     self::index(& vector, index).clone()
   }
 
-pub fn set<A>(mut vector : Vector<A>, index : usize, x : A) -> Vector<A>
+pub fn set<A>(vector : & mut Vector<A>, index : usize, x : A) -> ()
   {
-    crate::pointer::write(index_mutable(& mut vector, index), x)
-  ;
-    vector
+    crate::pointer::write(index_mutable(vector, index), x)
   }
 
-pub fn pop<A>(mut vector : Vector<A>) -> Option<(A, Vector<A>)>
+pub fn pop<A>(vector : & mut Vector<A>) -> Option<A>
   {
-    match (& mut vector.value).pop()
-      {
-        Some(vector_p) => Some((vector_p, vector))
-      ,
-        None => None
-      }
+    let & mut Vector { value : ref mut vector_value } = vector
+  ;
+    vector_value.pop()
   }
