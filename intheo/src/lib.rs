@@ -146,11 +146,11 @@ pub fn link(net : Net, port_a : & Port, port_b : & Port) -> Net
   ;
     match slot_a
       {
-        & Slot::SLOT_1 => pointer::write(slot_1_a, port_b.clone())
+        & Slot::SLOT_1 => pointer::write(slot_1_a, port_b.clone()).run()
       ,
-        & Slot::SLOT_2 => pointer::write(slot_2_a, port_b.clone())
+        & Slot::SLOT_2 => pointer::write(slot_2_a, port_b.clone()).run()
       ,
-        & Slot::SLOT_3 => pointer::write(slot_3_a, port_b.clone())
+        & Slot::SLOT_3 => pointer::write(slot_3_a, port_b.clone()).run()
       }
   ;
     let
@@ -169,11 +169,11 @@ pub fn link(net : Net, port_a : & Port, port_b : & Port) -> Net
   ;
     match slot_b
       {
-        & Slot::SLOT_1 => pointer::write(slot_1_b, port_a.clone())
+        & Slot::SLOT_1 => pointer::write(slot_1_b, port_a.clone()).run()
       ,
-        & Slot::SLOT_2 => pointer::write(slot_2_b, port_a.clone())
+        & Slot::SLOT_2 => pointer::write(slot_2_b, port_a.clone()).run()
       ,
-        & Slot::SLOT_3 => pointer::write(slot_3_b, port_a.clone())
+        & Slot::SLOT_3 => pointer::write(slot_3_b, port_a.clone()).run()
       }
   ;
     Net { nodes : nodes, reuse : reuse }
@@ -205,7 +205,7 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
                     kind : kind
                   }
           ;
-            pointer::write(vector::index_mutable(& mut nodes, address_value), node)
+            pointer::write(vector::index_mutable(& mut nodes, address_value), node).run()
           ;
             (Net { nodes : nodes, reuse : reuse }, address)
           }
@@ -229,7 +229,7 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
                     kind : kind
                   }
           ;
-            vector::push(& mut nodes, node)
+            vector::push(& mut nodes, node).run()
           ;
             (Net { nodes : nodes, reuse : reuse }, address)
           }
