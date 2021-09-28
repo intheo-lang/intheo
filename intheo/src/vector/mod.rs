@@ -4,6 +4,13 @@ pub struct Vector<A>
     pub value : Vec<A>
   }
 
+pub fn length<A>(vector : & Vector<A>) -> usize
+  {
+    let & Vector { value : ref vector_value } = vector
+  ;
+    vector_value.len()
+  }
+
 pub fn index<A>(vector : & Vector<A>, index : usize) -> & A
   {
     let & Vector { value : ref vector_value } = vector

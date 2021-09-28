@@ -213,7 +213,7 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
           None
         =>
           {
-            let address = Address { value : (& nodes).len() }
+            let address = Address { value : vector::length(& nodes) }
           ;
             let
                 node
