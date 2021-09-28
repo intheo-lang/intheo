@@ -205,7 +205,7 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
                     kind : kind
                   }
           ;
-            pointer::write(vector::index_mutable(& mut nodes, address_value), node).run()
+            vector::set(& mut nodes, address_value, node).run()
           ;
             (Net { nodes : nodes, reuse : reuse }, address)
           }
