@@ -88,7 +88,7 @@ pub fn enter<'a, 'b>(net : & 'a Net, port : & 'b Port) -> & 'a Port
             kind : _
           }
       =
-        nodes[address_value.clone()]
+        vector::index(nodes, address_value.clone())
   ;
     match slot
       {
@@ -110,7 +110,7 @@ pub fn kind<'a, 'b>(net : & 'a Net, address : & 'b Address) -> & 'a Kind
     let
         Node { slot_1 : _, slot_2 : _, slot_3 : _, kind : ref kind }
       =
-        nodes[address_value.clone()]
+        vector::index(nodes, address_value.clone())
   ;
     kind
   }
@@ -142,7 +142,7 @@ pub fn link(net : Net, port_a : & Port, port_b : & Port) -> Net
             kind : _
           }
       =
-        ref_mut_nodes[address_value_a.clone()]
+        vector::index_mutable(ref_mut_nodes, address_value_a.clone())
   ;
     match slot_a
       {
@@ -165,7 +165,7 @@ pub fn link(net : Net, port_a : & Port, port_b : & Port) -> Net
             kind : _
           }
       =
-        ref_mut_nodes[address_value_b.clone()]
+        vector::index_mutable(ref_mut_nodes, address_value_b.clone())
   ;
     match slot_b
       {
@@ -184,7 +184,7 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
   {
     let Net { nodes : mut nodes, reuse : mut reuse } = net
   ;
-    match (& mut reuse).pop()
+    match vector::pop(& mut reuse).run()
       {
           Some(address)
         =>
@@ -205,7 +205,7 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
                     kind : kind
                   }
           ;
-            pointer::write(& mut (& mut nodes)[address_value], node)
+            pointer::write(vector::index_mutable(& mut nodes, address_value), node)
           ;
             (Net { nodes : nodes, reuse : reuse }, address)
           }
