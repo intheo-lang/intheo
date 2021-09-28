@@ -189,7 +189,9 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
   {
     let Net { nodes : mut nodes, reuse : mut reuse } = net
   ;
-    match vector::pop(& mut reuse).run()
+    let option_address = vector::pop(& mut reuse).run()
+  ;
+    match option_address
       {
           Some(address)
         =>
