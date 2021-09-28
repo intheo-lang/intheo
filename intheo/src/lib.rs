@@ -131,51 +131,55 @@ pub fn link(net : Net, port_a : & Port, port_b : & Port) -> Net
   ;
     let ref_mut_nodes = & mut nodes
   ;
-    let
-        Node
-          {
-            slot_1 : ref mut slot_1_a
-          ,
-            slot_2 : ref mut slot_2_a
-          ,
-            slot_3 : ref mut slot_3_a
-          ,
-            kind : _
-          }
-      =
-        vector::index_mutable(ref_mut_nodes, address_value_a.clone())
+    {
+      let
+          Node
+            {
+              slot_1 : ref mut slot_1_a
+            ,
+              slot_2 : ref mut slot_2_a
+            ,
+              slot_3 : ref mut slot_3_a
+            ,
+              kind : _
+            }
+        =
+          vector::index_mutable(ref_mut_nodes, address_value_a.clone())
+    ;
+      match slot_a
+        {
+          & Slot::SLOT_1 => pointer::write(slot_1_a, port_b.clone()).run()
+        ,
+          & Slot::SLOT_2 => pointer::write(slot_2_a, port_b.clone()).run()
+        ,
+          & Slot::SLOT_3 => pointer::write(slot_3_a, port_b.clone()).run()
+        }
+    }
   ;
-    match slot_a
-      {
-        & Slot::SLOT_1 => pointer::write(slot_1_a, port_b.clone()).run()
-      ,
-        & Slot::SLOT_2 => pointer::write(slot_2_a, port_b.clone()).run()
-      ,
-        & Slot::SLOT_3 => pointer::write(slot_3_a, port_b.clone()).run()
-      }
-  ;
-    let
-        Node
-          {
-            slot_1 : ref mut slot_1_b
-          ,
-            slot_2 : ref mut slot_2_b
-          ,
-            slot_3 : ref mut slot_3_b
-          ,
-            kind : _
-          }
-      =
-        vector::index_mutable(ref_mut_nodes, address_value_b.clone())
-  ;
-    match slot_b
-      {
-        & Slot::SLOT_1 => pointer::write(slot_1_b, port_a.clone()).run()
-      ,
-        & Slot::SLOT_2 => pointer::write(slot_2_b, port_a.clone()).run()
-      ,
-        & Slot::SLOT_3 => pointer::write(slot_3_b, port_a.clone()).run()
-      }
+    {
+      let
+          Node
+            {
+              slot_1 : ref mut slot_1_b
+            ,
+              slot_2 : ref mut slot_2_b
+            ,
+              slot_3 : ref mut slot_3_b
+            ,
+              kind : _
+            }
+        =
+          vector::index_mutable(ref_mut_nodes, address_value_b.clone())
+    ;
+      match slot_b
+        {
+          & Slot::SLOT_1 => pointer::write(slot_1_b, port_a.clone()).run()
+        ,
+          & Slot::SLOT_2 => pointer::write(slot_2_b, port_a.clone()).run()
+        ,
+          & Slot::SLOT_3 => pointer::write(slot_3_b, port_a.clone()).run()
+        }
+    }
   ;
     Net { nodes : nodes, reuse : reuse }
   }
