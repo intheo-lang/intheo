@@ -35,6 +35,13 @@ pub fn set<A>(vector : & mut Vector<A>, index : usize, x : A) -> crate::effect::
     crate::pointer::write(index_mutable(vector, index), x)
   }
 
+pub fn push<A>(vector : & mut Vector<A>, x : A) -> crate::effect::Effect<()>
+  {
+    let & mut Vector { value : ref mut vector_value } = vector
+  ;
+    crate::effect::Effect { value : vector_value.push(x) }
+  }
+
 pub fn pop<A>(vector : & mut Vector<A>) -> crate::effect::Effect<Option<A>>
   {
     let & mut Vector { value : ref mut vector_value } = vector

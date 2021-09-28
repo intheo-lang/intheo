@@ -229,7 +229,7 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
                     kind : kind
                   }
           ;
-            (& mut nodes).push(node)
+            vector::push(& mut nodes, node)
           ;
             (Net { nodes : nodes, reuse : reuse }, address)
           }
