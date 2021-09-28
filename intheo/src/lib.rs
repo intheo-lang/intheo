@@ -1,5 +1,6 @@
 #![allow(non_shorthand_field_patterns)]
 
+pub mod effect;
 pub mod pointer;
 pub mod vector;
 
