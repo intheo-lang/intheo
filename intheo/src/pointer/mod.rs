@@ -1,5 +1,5 @@
 /// 更新する。
-pub fn write<T>(pointer : & mut T, value : T) -> ()
+pub fn write<T>(pointer : & mut T, value : T) -> crate::effect::Effect<()>
   {
-    * pointer = value
+    crate::effect::Effect { value : * pointer = value }
   }
