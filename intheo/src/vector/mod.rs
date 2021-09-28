@@ -11,7 +11,7 @@ pub fn get<A>(vector : & Vector<A>, index : usize) -> & A
 
 pub fn set<A>(mut vector : Vector<A>, index : usize, x : A) -> Vector<A>
   {
-    (& mut vector).value[index] = x
+    crate::pointer::write(& mut (& mut vector).value[index], x)
   ;
     vector
   }
