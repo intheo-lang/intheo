@@ -1,24 +1,7 @@
 #![allow(non_shorthand_field_patterns)]
 
+pub mod pointer;
 pub mod vector;
-
-/// 複製する。
-pub fn dup<T>(value : T) -> (T, T) where T : Clone
-  {
-    let ref_value : &T = &value
-  ;
-    let new_value_1 : T = ref_value.clone()
-  ;
-    let new_value_2 : T = ref_value.clone()
-  ;
-    (new_value_1, new_value_2)
-  }
-
-/// 更新する。
-pub fn upd<T>(pointer : & mut T, value : T) -> ()
-  {
-    * pointer = value
-  }
 
 /// アドレスである。ノードへのポインタを抽象的に表す。
 #[derive(Clone, Debug)]
@@ -162,11 +145,11 @@ pub fn link(net : Net, port_a : & Port, port_b : & Port) -> Net
   ;
     match slot_a
       {
-        & Slot::SLOT_1 => upd(slot_1_a, port_b.clone())
+        & Slot::SLOT_1 => pointer::write(slot_1_a, port_b.clone())
       ,
-        & Slot::SLOT_2 => upd(slot_2_a, port_b.clone())
+        & Slot::SLOT_2 => pointer::write(slot_2_a, port_b.clone())
       ,
-        & Slot::SLOT_3 => upd(slot_3_a, port_b.clone())
+        & Slot::SLOT_3 => pointer::write(slot_3_a, port_b.clone())
       }
   ;
     let
@@ -185,11 +168,11 @@ pub fn link(net : Net, port_a : & Port, port_b : & Port) -> Net
   ;
     match slot_b
       {
-        & Slot::SLOT_1 => upd(slot_1_b, port_a.clone())
+        & Slot::SLOT_1 => pointer::write(slot_1_b, port_a.clone())
       ,
-        & Slot::SLOT_2 => upd(slot_2_b, port_a.clone())
+        & Slot::SLOT_2 => pointer::write(slot_2_b, port_a.clone())
       ,
-        & Slot::SLOT_3 => upd(slot_3_b, port_a.clone())
+        & Slot::SLOT_3 => pointer::write(slot_3_b, port_a.clone())
       }
   ;
     Net { nodes : nodes, reuse : reuse }
@@ -221,7 +204,7 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
                     kind : kind
                   }
           ;
-            upd(& mut (& mut nodes)[address_value], node)
+            pointer::write(& mut (& mut nodes)[address_value], node)
           ;
             (Net { nodes : nodes, reuse : reuse }, address)
           }
