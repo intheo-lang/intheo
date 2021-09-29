@@ -254,3 +254,17 @@ pub fn new_node(net : & mut Net, kind : Kind) -> effect::Effect<Address>
           }
       }
   }
+
+/// `reduce` の統計である。
+pub struct Statics
+  {
+    pub loops : u32
+  ,
+    pub rules : u32
+  }
+
+/// 簡約する。
+pub fn reduce(net : & mut Net, statics : & mut Statics) -> effect::Effect<()>
+  {
+    effect::Effect { value : () }
+  }
