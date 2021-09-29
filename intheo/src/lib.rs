@@ -5,6 +5,8 @@ pub mod effect;
 pub mod pointer;
 pub mod vector;
 
+use effect::Effect;
+
 /// アドレスである。ノードへのポインタを抽象的に表す。
 #[derive(Clone, Debug)]
 pub struct Address
@@ -117,7 +119,7 @@ pub fn kind<'a, 'b>(net : & 'a Net, address : & 'b Address) -> & 'a Kind
   }
 
 /// 二つの `Port` を繋ぎ合わせる。
-pub fn link(net : & mut Net, port_a : & Port, port_b : & Port) -> effect::Effect<()>
+pub fn link(net : & mut Net, port_a : & Port, port_b : & Port) -> Effect<()>
   {
     let & mut Net { nodes : ref mut nodes, reuse : _ } = net
   ;
@@ -181,11 +183,11 @@ pub fn link(net : & mut Net, port_a : & Port, port_b : & Port) -> effect::Effect
         }
     }
   ;
-    effect::Effect { value : () }
+    Effect { value : () }
   }
 
 /// `Node` を新しく確保する。
-pub fn new_node(net : & mut Net, kind : Kind) -> effect::Effect<Address>
+pub fn new_node(net : & mut Net, kind : Kind) -> Effect<Address>
   {
     let & mut Net { nodes : ref mut nodes, reuse : ref mut reuse } = net
   ;
@@ -214,7 +216,7 @@ pub fn new_node(net : & mut Net, kind : Kind) -> effect::Effect<Address>
           ;
             vector::set(nodes, address_value, node).run()
           ;
-            effect::Effect { value : address }
+            Effect { value : address }
           }
       ,
           None
@@ -250,7 +252,7 @@ pub fn new_node(net : & mut Net, kind : Kind) -> effect::Effect<Address>
           ;
             vector::push(nodes, node).run()
           ;
-            effect::Effect { value : address }
+            Effect { value : address }
           }
       }
   }
@@ -264,7 +266,7 @@ pub struct Statics
   }
 
 /// 簡約する。
-pub fn reduce(net : & mut Net, statics : & mut Statics) -> effect::Effect<()>
+pub fn reduce(net : & mut Net, statics : & mut Statics) -> Effect<()>
   {
-    effect::Effect { value : () }
+    Effect { value : () }
   }
