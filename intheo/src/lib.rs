@@ -265,6 +265,12 @@ pub struct Statics
     pub rules : u32
   }
 
+/// `Address` で指定された `Node` のペアを書き換える。
+pub fn rewrite(net : & mut Net, x : Address, y : Address) -> Effect<()>
+  {
+    Effect { value : () }
+  }
+
 /// 簡約する。
 pub fn reduce(net : & mut Net, statics : & mut Statics) -> Effect<()>
   {
