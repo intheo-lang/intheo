@@ -117,9 +117,9 @@ pub fn kind<'a, 'b>(net : & 'a Net, address : & 'b Address) -> & 'a Kind
   }
 
 /// 二つの `Port` を繋ぎ合わせる。
-pub fn link(net : Net, port_a : & Port, port_b : & Port) -> Net
+pub fn link(net : & mut Net, port_a : & Port, port_b : & Port) -> effect::Effect<()>
   {
-    let Net { nodes : mut nodes, reuse : reuse } = net
+    let & mut Net { nodes : ref mut nodes, reuse : _ } = net
   ;
     let & Port { address : ref address_a, slot : ref slot_a } = port_a
   ;
@@ -129,22 +129,21 @@ pub fn link(net : Net, port_a : & Port, port_b : & Port) -> Net
   ;
     let & Address { value : ref address_value_b } = address_b
   ;
-    let ref_mut_nodes = & mut nodes
-  ;
     {
       let
-          Node
-            {
-              slot_1 : ref mut slot_1_a
-            ,
-              slot_2 : ref mut slot_2_a
-            ,
-              slot_3 : ref mut slot_3_a
-            ,
-              kind : _
-            }
+          & mut
+            Node
+              {
+                slot_1 : ref mut slot_1_a
+              ,
+                slot_2 : ref mut slot_2_a
+              ,
+                slot_3 : ref mut slot_3_a
+              ,
+                kind : _
+              }
         =
-          vector::index_mutable(ref_mut_nodes, address_value_a.clone())
+          vector::index_mutable(nodes, address_value_a.clone())
     ;
       match slot_a
         {
@@ -158,18 +157,19 @@ pub fn link(net : Net, port_a : & Port, port_b : & Port) -> Net
   ;
     {
       let
-          Node
-            {
-              slot_1 : ref mut slot_1_b
-            ,
-              slot_2 : ref mut slot_2_b
-            ,
-              slot_3 : ref mut slot_3_b
-            ,
-              kind : _
-            }
+          & mut
+            Node
+              {
+                slot_1 : ref mut slot_1_b
+              ,
+                slot_2 : ref mut slot_2_b
+              ,
+                slot_3 : ref mut slot_3_b
+              ,
+                kind : _
+              }
         =
-          vector::index_mutable(ref_mut_nodes, address_value_b.clone())
+          vector::index_mutable(nodes, address_value_b.clone())
     ;
       match slot_b
         {
@@ -181,15 +181,15 @@ pub fn link(net : Net, port_a : & Port, port_b : & Port) -> Net
         }
     }
   ;
-    Net { nodes : nodes, reuse : reuse }
+    effect::Effect { value : () }
   }
 
 /// `Node` を新しく確保する。
-pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
+pub fn new_node(net : & mut Net, kind : Kind) -> effect::Effect<Address>
   {
-    let Net { nodes : mut nodes, reuse : mut reuse } = net
+    let & mut Net { nodes : ref mut nodes, reuse : ref mut reuse } = net
   ;
-    let option_address = vector::pop(& mut reuse).run()
+    let option_address = vector::pop(reuse).run()
   ;
     match option_address
       {
@@ -212,15 +212,27 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
                     kind : kind
                   }
           ;
-            vector::set(& mut nodes, address_value, node).run()
+            vector::set(nodes, address_value, node).run()
           ;
-            (Net { nodes : nodes, reuse : reuse }, address)
+            effect::Effect { value : address }
           }
       ,
           None
         =>
           {
-            let address = Address { value : vector::length(& nodes) }
+            let
+                address
+              =
+                Address
+                  {
+                      value
+                    :
+                      {
+                        let & mut ref nodes_immutable = nodes
+                      ;
+                        vector::length(nodes_immutable)
+                      }
+                  }
           ;
             let
                 node
@@ -236,9 +248,9 @@ pub fn new_node(net : Net, kind : Kind) -> (Net, Address)
                     kind : kind
                   }
           ;
-            vector::push(& mut nodes, node).run()
+            vector::push(nodes, node).run()
           ;
-            (Net { nodes : nodes, reuse : reuse }, address)
+            effect::Effect { value : address }
           }
       }
   }
