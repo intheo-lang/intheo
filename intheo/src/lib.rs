@@ -18,11 +18,11 @@ pub struct Address
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub enum Slot
   {
+    SLOT_0
+  ,
     SLOT_1
   ,
     SLOT_2
-  ,
-    SLOT_3
   }
 
 /// ポートである。
@@ -49,11 +49,11 @@ pub enum Kind
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct Node
   {
+    pub slot_0 : Port
+  ,
     pub slot_1 : Port
   ,
     pub slot_2 : Port
-  ,
-    pub slot_3 : Port
   ,
     pub kind : Kind
   }
@@ -82,11 +82,11 @@ pub fn enter<'a, 'b>(net : & 'a Net, port : & 'b Port) -> & 'a Port
     let
         Node
           {
+            slot_0 : ref slot_0
+          ,
             slot_1 : ref slot_1
           ,
             slot_2 : ref slot_2
-          ,
-            slot_3 : ref slot_3
           ,
             kind : _
           }
@@ -95,11 +95,11 @@ pub fn enter<'a, 'b>(net : & 'a Net, port : & 'b Port) -> & 'a Port
   ;
     match slot
       {
+        & Slot::SLOT_0 => slot_0
+      ,
         & Slot::SLOT_1 => slot_1
       ,
         & Slot::SLOT_2 => slot_2
-      ,
-        & Slot::SLOT_3 => slot_3
       }
   }
 
@@ -111,7 +111,7 @@ pub fn kind<'a, 'b>(net : & 'a Net, address : & 'b Address) -> & 'a Kind
     let & Address { value : ref address_value } = address
   ;
     let
-        Node { slot_1 : _, slot_2 : _, slot_3 : _, kind : ref kind }
+        Node { slot_0 : _, slot_1 : _, slot_2 : _, kind : ref kind }
       =
         vector::index(nodes, address_value.clone())
   ;
@@ -136,11 +136,11 @@ pub fn link(net : & mut Net, port_a : & Port, port_b : & Port) -> Effect<()>
           & mut
             Node
               {
+                slot_0 : ref mut slot_0_a
+              ,
                 slot_1 : ref mut slot_1_a
               ,
                 slot_2 : ref mut slot_2_a
-              ,
-                slot_3 : ref mut slot_3_a
               ,
                 kind : _
               }
@@ -149,11 +149,11 @@ pub fn link(net : & mut Net, port_a : & Port, port_b : & Port) -> Effect<()>
     ;
       match slot_a
         {
+          & Slot::SLOT_0 => pointer::write(slot_0_a, port_b.clone()).run()
+        ,
           & Slot::SLOT_1 => pointer::write(slot_1_a, port_b.clone()).run()
         ,
           & Slot::SLOT_2 => pointer::write(slot_2_a, port_b.clone()).run()
-        ,
-          & Slot::SLOT_3 => pointer::write(slot_3_a, port_b.clone()).run()
         }
     }
   ;
@@ -162,11 +162,11 @@ pub fn link(net : & mut Net, port_a : & Port, port_b : & Port) -> Effect<()>
           & mut
             Node
               {
+                slot_0 : ref mut slot_0_b
+              ,
                 slot_1 : ref mut slot_1_b
               ,
                 slot_2 : ref mut slot_2_b
-              ,
-                slot_3 : ref mut slot_3_b
               ,
                 kind : _
               }
@@ -175,11 +175,11 @@ pub fn link(net : & mut Net, port_a : & Port, port_b : & Port) -> Effect<()>
     ;
       match slot_b
         {
+          & Slot::SLOT_0 => pointer::write(slot_0_b, port_a.clone()).run()
+        ,
           & Slot::SLOT_1 => pointer::write(slot_1_b, port_a.clone()).run()
         ,
           & Slot::SLOT_2 => pointer::write(slot_2_b, port_a.clone()).run()
-        ,
-          & Slot::SLOT_3 => pointer::write(slot_3_b, port_a.clone()).run()
         }
     }
   ;
@@ -203,11 +203,11 @@ pub fn new_node(net : & mut Net, kind : & Kind) -> Effect<Address>
               =
                 Node
                   {
+                    slot_0 : Port { address : (& address).clone(), slot : Slot::SLOT_0 }
+                  ,
                     slot_1 : Port { address : (& address).clone(), slot : Slot::SLOT_1 }
                   ,
                     slot_2 : Port { address : (& address).clone(), slot : Slot::SLOT_2 }
-                  ,
-                    slot_3 : Port { address : (& address).clone(), slot : Slot::SLOT_3 }
                   ,
                     kind : kind.clone()
                   }
@@ -243,11 +243,11 @@ pub fn new_node(net : & mut Net, kind : & Kind) -> Effect<Address>
               =
                 Node
                   {
+                    slot_0 : Port { address : (& address).clone(), slot : Slot::SLOT_0 }
+                  ,
                     slot_1 : Port { address : (& address).clone(), slot : Slot::SLOT_1 }
                   ,
                     slot_2 : Port { address : (& address).clone(), slot : Slot::SLOT_2 }
-                  ,
-                    slot_3 : Port { address : (& address).clone(), slot : Slot::SLOT_3 }
                   ,
                     kind : kind.clone()
                   }
