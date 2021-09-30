@@ -120,19 +120,15 @@ pub fn kind(net : & Net, address : Address) -> & Kind
   }
 
 /// 二つの `Port` を繋ぎ合わせる。
-pub fn link(net : & mut Net, port_a : & Port, port_b : & Port) -> Effect<()>
+pub fn link(net : & mut Net, port_a : Port, port_b : Port) -> Effect<()>
   {
     let & mut Net { nodes : ref mut nodes, reuse : _ } = net
   ;
-    let & Port { address : ref address_a, slot : ref slot_a } = port_a
-  ;
-    let & Address { value : ref address_value_a } = address_a
-  ;
-    let & Port { address : ref address_b, slot : ref slot_b } = port_b
-  ;
-    let & Address { value : ref address_value_b } = address_b
-  ;
     {
+      let Port { address : address_a, slot : slot_a } = (& port_a).clone()
+    ;
+      let Address { value : address_value_a } = address_a
+    ;
       let
           & mut
             Node
@@ -146,19 +142,23 @@ pub fn link(net : & mut Net, port_a : & Port, port_b : & Port) -> Effect<()>
                 kind : _
               }
         =
-          vector::index_mutable(nodes, address_value_a.clone())
+          vector::index_mutable(nodes, address_value_a)
     ;
       match slot_a
         {
-          & Slot::SLOT_1 => pointer::write(slot_1_a, port_b.clone()).run()
+          Slot::SLOT_1 => pointer::write(slot_1_a, port_b).run()
         ,
-          & Slot::SLOT_2 => pointer::write(slot_2_a, port_b.clone()).run()
+          Slot::SLOT_2 => pointer::write(slot_2_a, port_b).run()
         ,
-          & Slot::SLOT_3 => pointer::write(slot_3_a, port_b.clone()).run()
+          Slot::SLOT_3 => pointer::write(slot_3_a, port_b).run()
         }
     }
   ;
     {
+      let Port { address : address_b, slot : slot_b } = (& port_b).clone()
+    ;
+      let Address { value : address_value_b } = address_b
+    ;
       let
           & mut
             Node
@@ -172,15 +172,15 @@ pub fn link(net : & mut Net, port_a : & Port, port_b : & Port) -> Effect<()>
                 kind : _
               }
         =
-          vector::index_mutable(nodes, address_value_b.clone())
+          vector::index_mutable(nodes, address_value_b)
     ;
       match slot_b
         {
-          & Slot::SLOT_1 => pointer::write(slot_1_b, port_a.clone()).run()
+          Slot::SLOT_1 => pointer::write(slot_1_b, port_a).run()
         ,
-          & Slot::SLOT_2 => pointer::write(slot_2_b, port_a.clone()).run()
+          Slot::SLOT_2 => pointer::write(slot_2_b, port_a).run()
         ,
-          & Slot::SLOT_3 => pointer::write(slot_3_b, port_a.clone()).run()
+          Slot::SLOT_3 => pointer::write(slot_3_b, port_a).run()
         }
     }
   ;
