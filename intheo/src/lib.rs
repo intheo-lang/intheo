@@ -270,7 +270,19 @@ pub struct Statics
 /// `Address` で指定された `Node` のペアを書き換える。
 pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
   {
-    Effect { value : () }
+    if
+      {
+        let & mut ref net_immutable = net
+      ;
+        kind(net_immutable, x).clone() == kind(net_immutable, y).clone()
+      }
+      {
+        Effect { value : () }
+      }
+    else
+      {
+        Effect { value : () }
+      }
   }
 
 /// 簡約する。
