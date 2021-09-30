@@ -8,14 +8,14 @@ pub mod vector;
 use effect::Effect;
 
 /// アドレスである。ノードへのポインタを抽象的に表す。
-#[derive(Clone, Debug)]
+#[derive(Clone, PartialEq, Eq, Debug)]
 pub struct Address
   {
     value : usize
   }
 
 /// スロットである。
-#[derive(Clone, Debug)]
+#[derive(Clone, PartialEq, Eq, Debug)]
 pub enum Slot
   {
     SLOT_1
@@ -26,7 +26,7 @@ pub enum Slot
   }
 
 /// ポートである。
-#[derive(Clone, Debug)]
+#[derive(Clone, PartialEq, Eq, Debug)]
 pub struct Port
   {
     pub address : Address
@@ -35,7 +35,7 @@ pub struct Port
   }
 
 /// カインドである。
-#[derive(Clone, Debug)]
+#[derive(Clone, PartialEq, Eq, Debug)]
 pub enum Kind
   {
     ERA
@@ -46,7 +46,7 @@ pub enum Kind
   }
 
 /// ノードである。
-#[derive(Clone, Debug)]
+#[derive(Clone, PartialEq, Eq, Debug)]
 pub struct Node
   {
     pub slot_1 : Port
@@ -62,7 +62,7 @@ pub struct Node
 ///
 /// [1]: https://qnighy.hatenablog.com/entry/2017/04/28/070000
 /// [2]: https://qiita.com/qnighy/items/c3cb525e7f69bee40bf6
-#[derive(Clone, Debug)]
+#[derive(Clone, PartialEq, Eq, Debug)]
 pub struct Net
   {
     pub nodes : vector::Vector<Node>

@@ -1,4 +1,4 @@
-#[derive(Clone, Debug)]
+#[derive(Clone, PartialEq, Eq, Debug)]
 pub struct Vector<A>
   {
     pub value : Vec<A>
