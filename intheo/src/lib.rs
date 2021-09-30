@@ -188,7 +188,7 @@ pub fn link(net : & mut Net, port_a : & Port, port_b : & Port) -> Effect<()>
   }
 
 /// `Node` を新しく確保する。
-pub fn new_node(net : & mut Net, kind : & Kind) -> Effect<Address>
+pub fn new_node(net : & mut Net, kind : Kind) -> Effect<Address>
   {
     let & mut Net { nodes : ref mut nodes, reuse : ref mut reuse } = net
   ;
@@ -210,7 +210,7 @@ pub fn new_node(net : & mut Net, kind : & Kind) -> Effect<Address>
                   ,
                     slot_2 : Port { address : (& address).clone(), slot : Slot::SLOT_2 }
                   ,
-                    kind : kind.clone()
+                    kind : kind
                   }
           ;
             {
@@ -250,7 +250,7 @@ pub fn new_node(net : & mut Net, kind : & Kind) -> Effect<Address>
                   ,
                     slot_2 : Port { address : (& address).clone(), slot : Slot::SLOT_2 }
                   ,
-                    kind : kind.clone()
+                    kind : kind
                   }
           ;
             vector::push(nodes, node).run()
