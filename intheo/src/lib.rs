@@ -280,7 +280,7 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
       {
         {
           let
-              x_1
+              p_0
             =
               {
                 let & mut ref net_immutable = net
@@ -289,7 +289,7 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
               }
         ;
           let
-              y_1
+              p_1
             =
               {
                 let & mut ref net_immutable = net
@@ -297,12 +297,12 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
                 enter(net_immutable, Port { address : y.clone(), slot : Slot::SLOT_1 }).clone()
               }
         ;
-          link(net, & x_1, & y_1).run()
+          link(net, & p_0, & p_1).run()
         }
       ;
         {
           let
-              x_2
+              p_0
             =
               {
                 let & mut ref net_immutable = net
@@ -311,7 +311,7 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
               }
         ;
           let
-              y_2
+              p_1
             =
               {
                 let & mut ref net_immutable = net
@@ -319,7 +319,7 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
                 enter(net_immutable, Port { address : y.clone(), slot : Slot::SLOT_2 }).clone()
               }
         ;
-          link(net, & x_2, & y_2).run()
+          link(net, & p_0, & p_1).run()
         }
       ;
         {
@@ -334,6 +334,130 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
       }
     else
       {
+        let
+            ref a
+          =
+            {
+              let
+                  x_kind
+                =
+                  {
+                    let & mut ref net_immutable = net
+                  ;
+                    kind(net_immutable, x.clone()).clone()
+                  }
+            ;
+              new_node(net, x_kind).run()
+            }
+      ;
+        let
+            ref b
+          =
+            {
+              let
+                  y_kind
+                =
+                  {
+                    let & mut ref net_immutable = net
+                  ;
+                    kind(net_immutable, y.clone()).clone()
+                  }
+            ;
+              new_node(net, y_kind).run()
+            }
+      ;
+        {
+          let
+              t
+            =
+              {
+                let & mut ref net_immutable = net
+              ;
+                enter(net_immutable, Port { address : x.clone(), slot : Slot::SLOT_1 }).clone()
+              }
+        ;
+          link(net, & Port { address : b.clone(), slot : Slot::SLOT_0 }, & t).run()
+        }
+      ;
+        {
+          let
+              t
+            =
+              {
+                let & mut ref net_immutable = net
+              ;
+                enter(net_immutable, Port { address : x.clone(), slot : Slot::SLOT_2 }).clone()
+              }
+        ;
+          link(net, & Port { address : y.clone(), slot : Slot::SLOT_0 }, & t).run()
+        }
+      ;
+        {
+          let
+              t
+            =
+              {
+                let & mut ref net_immutable = net
+              ;
+                enter(net_immutable, Port { address : y.clone(), slot : Slot::SLOT_1 }).clone()
+              }
+        ;
+          link(net, & Port { address : a.clone(), slot : Slot::SLOT_0 }, & t).run()
+        }
+      ;
+        {
+          let
+              t
+            =
+              {
+                let & mut ref net_immutable = net
+              ;
+                enter(net_immutable, Port { address : y.clone(), slot : Slot::SLOT_2 }).clone()
+              }
+        ;
+          link(net, & Port { address : x.clone(), slot : Slot::SLOT_0 }, & t).run()
+        }
+      ;
+        link
+          (
+            net
+          ,
+            & Port { address : a.clone(), slot : Slot::SLOT_1 }
+          ,
+            & Port { address : b.clone(), slot : Slot::SLOT_1 }
+          )
+        .run()
+      ;
+        link
+          (
+            net
+          ,
+            & Port { address : a.clone(), slot : Slot::SLOT_2 }
+          ,
+            & Port { address : y.clone(), slot : Slot::SLOT_1 }
+          )
+        .run()
+      ;
+        link
+          (
+            net
+          ,
+            & Port { address : x.clone(), slot : Slot::SLOT_1 }
+          ,
+            & Port { address : b.clone(), slot : Slot::SLOT_2 }
+          )
+        .run()
+      ;
+        link
+          (
+            net
+          ,
+            & Port { address : x.clone(), slot : Slot::SLOT_2 }
+          ,
+            & Port { address : y.clone(), slot : Slot::SLOT_2 }
+          )
+        .run()
+      ;
         Effect { value : () }
       }
   }
