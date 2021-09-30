@@ -83,11 +83,11 @@ pub fn enter(net : & Net, port : Port) -> & Port
         &
           Node
             {
+              slot_0 : ref slot_0
+            ,
               slot_1 : ref slot_1
             ,
               slot_2 : ref slot_2
-            ,
-              slot_3 : ref slot_3
             ,
               kind : _
             }
@@ -112,7 +112,7 @@ pub fn kind(net : & Net, address : Address) -> & Kind
     let Address { value : address_value } = address
   ;
     let
-        Node { slot_0 : _, slot_1 : _, slot_2 : _, kind : ref kind }
+        & Node { slot_0 : _, slot_1 : _, slot_2 : _, kind : ref kind }
       =
         vector::index(nodes, address_value)
   ;
