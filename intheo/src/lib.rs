@@ -268,7 +268,7 @@ pub struct Statics
   }
 
 /// `Address` で指定された `Node` のペアを書き換える。
-pub fn rewrite(net : & mut Net, x : Address, y : Address) -> Effect<()>
+pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
   {
     Effect { value : () }
   }
