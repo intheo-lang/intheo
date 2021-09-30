@@ -62,7 +62,7 @@ pub struct Node
 ///
 /// [1]: https://qnighy.hatenablog.com/entry/2017/04/28/070000
 /// [2]: https://qiita.com/qnighy/items/c3cb525e7f69bee40bf6
-#[derive(Clone, PartialEq, Eq, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 pub struct Net
   {
     pub nodes : vector::Vector<Node>
