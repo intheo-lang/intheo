@@ -71,50 +71,49 @@ pub struct Net
   }
 
 /// `Port` の参照先を取得する。
-pub fn enter(net : & Net, port : Port) -> & Port
+pub fn enter<'a, 'b>(net : & 'a Net, port : & 'b Port) -> & 'a Port
   {
     let & Net { nodes : ref nodes, reuse : _ } = net
   ;
-    let Port { address : address, slot : slot } = port
+    let & Port { address : ref address, slot : ref slot } = port
   ;
-    let Address { value : address_value } = address
+    let & Address { value : ref address_value } = address
   ;
     let
-        &
-          Node
-            {
-              slot_1 : ref slot_1
-            ,
-              slot_2 : ref slot_2
-            ,
-              slot_3 : ref slot_3
-            ,
-              kind : _
-            }
+        Node
+          {
+            slot_1 : ref slot_1
+          ,
+            slot_2 : ref slot_2
+          ,
+            slot_3 : ref slot_3
+          ,
+            kind : _
+          }
       =
-        vector::index(nodes, address_value)
+        vector::index(nodes, address_value.clone())
   ;
     match slot
       {
-        Slot::SLOT_1 => slot_1
+        & Slot::SLOT_1 => slot_1
       ,
-        Slot::SLOT_2 => slot_2
+        & Slot::SLOT_2 => slot_2
       ,
-        Slot::SLOT_3 => slot_3
+        & Slot::SLOT_3 => slot_3
       }
   }
 
 /// `Address` の参照先のカインドを取得する。
-pub fn kind(net : & Net, address : Address) -> & Kind
+pub fn kind<'a, 'b>(net : & 'a Net, address : & 'b Address) -> & 'a Kind
   {
     let & Net { nodes : ref nodes, reuse : _ } = net
   ;
-    let Address { value : address_value } = address
+    let & Address { value : ref address_value } = address
   ;
     let
         Node { slot_1 : _, slot_2 : _, slot_3 : _, kind : ref kind }
       =
-        vector::index(nodes, address_value)
+        vector::index(nodes, address_value.clone())
   ;
     kind
   }
