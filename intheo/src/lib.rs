@@ -275,7 +275,7 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
       {
         let & mut ref net_immutable = net
       ;
-        kind(net_immutable, x).clone() == kind(net_immutable, y).clone()
+        kind(net_immutable, x.clone()).clone() == kind(net_immutable, y.clone()).clone()
       }
       {
         {
@@ -285,7 +285,7 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
               {
                 let & mut ref net_immutable = net
               ;
-                enter(net_immutable, & Port { address : x.clone(), slot : Slot::SLOT_1 }).clone()
+                enter(net_immutable, Port { address : x.clone(), slot : Slot::SLOT_1 }).clone()
               }
         ;
           let
@@ -294,7 +294,7 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
               {
                 let & mut ref net_immutable = net
               ;
-                enter(net_immutable, & Port { address : y.clone(), slot : Slot::SLOT_1 }).clone()
+                enter(net_immutable, Port { address : y.clone(), slot : Slot::SLOT_1 }).clone()
               }
         ;
           link(net, & x_1, & y_1).run()
@@ -307,7 +307,7 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
               {
                 let & mut ref net_immutable = net
               ;
-                enter(net_immutable, & Port { address : x.clone(), slot : Slot::SLOT_2 }).clone()
+                enter(net_immutable, Port { address : x.clone(), slot : Slot::SLOT_2 }).clone()
               }
         ;
           let
@@ -316,7 +316,7 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
               {
                 let & mut ref net_immutable = net
               ;
-                enter(net_immutable, & Port { address : y.clone(), slot : Slot::SLOT_2 }).clone()
+                enter(net_immutable, Port { address : y.clone(), slot : Slot::SLOT_2 }).clone()
               }
         ;
           link(net, & x_2, & y_2).run()
