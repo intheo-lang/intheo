@@ -322,11 +322,13 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
           link(net, & x_2, & y_2).run()
         }
       ;
-        let & mut Net { nodes : _, reuse : ref mut reuse } = net
-      ;
-        vector::push(reuse, x.clone()).run()
-      ;
-        vector::push(reuse, y.clone()).run()
+        {
+          let & mut Net { nodes : _, reuse : ref mut reuse } = net
+        ;
+          vector::push(reuse, x.clone()).run()
+        ;
+          vector::push(reuse, y.clone()).run()
+        }
       ;
         Effect { value : () }
       }
