@@ -124,15 +124,11 @@ pub fn link(net : & mut Net, port_a : & Port, port_b : & Port) -> Effect<()>
   {
     let & mut Net { nodes : ref mut nodes, reuse : _ } = net
   ;
-    let & Port { address : ref address_a, slot : ref slot_a } = port_a
-  ;
-    let & Address { value : ref address_value_a } = address_a
-  ;
-    let & Port { address : ref address_b, slot : ref slot_b } = port_b
-  ;
-    let & Address { value : ref address_value_b } = address_b
-  ;
     {
+      let & Port { address : ref address_a, slot : ref slot_a } = port_a
+    ;
+      let & Address { value : ref address_value_a } = address_a
+    ;
       let
           & mut
             Node
@@ -159,6 +155,10 @@ pub fn link(net : & mut Net, port_a : & Port, port_b : & Port) -> Effect<()>
     }
   ;
     {
+      let & Port { address : ref address_b, slot : ref slot_b } = port_b
+    ;
+      let & Address { value : ref address_value_b } = address_b
+    ;
       let
           & mut
             Node
