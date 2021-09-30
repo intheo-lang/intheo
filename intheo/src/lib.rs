@@ -277,6 +277,56 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
         kind(net_immutable, x).clone() == kind(net_immutable, y).clone()
       }
       {
+        {
+          let
+              x_1
+            =
+              {
+                let & mut ref net_immutable = net
+              ;
+                enter(net_immutable, & Port { address : x.clone(), slot : Slot::SLOT_1 }).clone()
+              }
+        ;
+          let
+              y_1
+            =
+              {
+                let & mut ref net_immutable = net
+              ;
+                enter(net_immutable, & Port { address : y.clone(), slot : Slot::SLOT_1 }).clone()
+              }
+        ;
+          link(net, & x_1, & y_1).run()
+        }
+      ;
+        {
+          let
+              x_2
+            =
+              {
+                let & mut ref net_immutable = net
+              ;
+                enter(net_immutable, & Port { address : x.clone(), slot : Slot::SLOT_2 }).clone()
+              }
+        ;
+          let
+              y_2
+            =
+              {
+                let & mut ref net_immutable = net
+              ;
+                enter(net_immutable, & Port { address : y.clone(), slot : Slot::SLOT_2 }).clone()
+              }
+        ;
+          link(net, & x_2, & y_2).run()
+        }
+      ;
+        let & mut Net { nodes : _, reuse : ref mut reuse } = net
+      ;
+        vector::push(reuse, x.clone()).run()
+      ;
+        vector::push(reuse, y.clone()).run()
+      ;
         Effect { value : () }
       }
     else
