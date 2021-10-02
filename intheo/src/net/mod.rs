@@ -571,8 +571,6 @@ fn reduce
     exit : & mut Vector<Address>
   ,
     next : & mut Port
-  ,
-    back : & mut Port
   )
 -> Effect<()>
   {
