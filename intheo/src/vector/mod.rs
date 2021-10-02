@@ -37,7 +37,9 @@ pub fn get<A>(vector : Vector<& A>, index : usize) -> & A
 
 pub fn set<A>(vector : & mut Vector<A>, index : usize, x : A) -> Effect<()>
   {
-    pointer::write(index_mutable(vector, index), x)
+    pointer::write(index_mutable(vector, index), x).run()
+  ;
+    Effect { value : () }
   }
 
 pub fn push<A>(vector : & mut Vector<A>, x : A) -> Effect<()>
