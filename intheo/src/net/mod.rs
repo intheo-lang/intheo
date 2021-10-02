@@ -318,9 +318,9 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
       {
         let & mut ref net_immutable = net
       ;
-          kind(net_immutable, x.clone()).clone()
+          * kind(net_immutable, x.clone())
         ==
-          kind(net_immutable, y.clone()).clone()
+          * kind(net_immutable, y.clone())
       }
       {
         {
