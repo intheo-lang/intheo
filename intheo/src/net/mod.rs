@@ -578,11 +578,11 @@ fn reduce
   {
     if
       {
-        let & mut Port { address : ref mut address, slot : _ } = next
+        let & mut Port { address : ref mut address, slot : ref mut slot } = next
       ;
         let & mut Address { value : ref mut address_value } = address
       ;
-        * address_value > 0
+        * address_value > 0 || * slot != Slot::SLOT_0
       }
       {
         let
@@ -600,7 +600,7 @@ fn reduce
           {
             let & mut Port { address : _, slot : ref mut slot } = next
           ;
-            * slot != Slot::SLOT_0
+            * slot == Slot::SLOT_0
           }
           {
             if
@@ -612,6 +612,12 @@ fn reduce
                 * address_value > 0 && * slot == Slot::SLOT_0
               }
               {
+                {
+                  let & mut Statics { loops : _, rules : ref mut rules } = statics
+                ;
+                  pointer::write(rules, * rules + 1)
+                }
+              ;
                 Effect { value : () }
               }
             else
