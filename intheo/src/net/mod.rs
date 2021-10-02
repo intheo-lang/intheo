@@ -559,7 +559,24 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
   }
 
 /// 簡約する。
-pub fn reduce(net : & mut Net, statics : & mut Statics) -> Effect<()>
+pub
+fn reduce
+  (
+    net : & mut Net
+  ,
+    statics : & mut Statics
+  ,
+    warp : & mut Vector<Port>
+  ,
+    exit : & mut Vector<Address>
+  ,
+    next : & mut Port
+  ,
+    prev : & mut Port
+  ,
+    back : & mut Port
+  )
+-> Effect<()>
   {
     Effect { value : () }
   }
