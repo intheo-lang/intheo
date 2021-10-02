@@ -6,6 +6,7 @@ pub mod pointer;
 pub mod vector;
 
 use effect::Effect;
+use vector::Vector;
 
 /// アドレスである。ノードへのポインタを抽象的に表す。
 #[derive(Clone, PartialEq, Eq, Debug)]
@@ -65,9 +66,9 @@ pub struct Node
 #[derive(PartialEq, Eq, Debug)]
 pub struct Net
   {
-    pub nodes : vector::Vector<Node>
+    pub nodes : Vector<Node>
   ,
-    pub reuse : vector::Vector<Address>
+    pub reuse : Vector<Address>
   }
 
 /// `Port` の参照先を取得する。
