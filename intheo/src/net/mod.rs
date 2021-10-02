@@ -205,11 +205,32 @@ pub fn new_node(net : & mut Net, kind : Kind) -> Effect<Address>
               =
                 Node
                   {
-                    slot_0 : Port { address : (& address).clone(), slot : Slot::SLOT_0 }
+                      slot_0
+                    :
+                      Port
+                        {
+                          address : (& address).clone()
+                        ,
+                          slot : Slot::SLOT_0
+                        }
                   ,
-                    slot_1 : Port { address : (& address).clone(), slot : Slot::SLOT_1 }
+                      slot_1
+                    :
+                      Port
+                        {
+                          address : (& address).clone()
+                        ,
+                          slot : Slot::SLOT_1
+                        }
                   ,
-                    slot_2 : Port { address : (& address).clone(), slot : Slot::SLOT_2 }
+                      slot_2
+                    :
+                      Port
+                        {
+                          address : (& address).clone()
+                        ,
+                          slot : Slot::SLOT_2
+                        }
                   ,
                     kind : kind
                   }
@@ -245,11 +266,32 @@ pub fn new_node(net : & mut Net, kind : Kind) -> Effect<Address>
               =
                 Node
                   {
-                    slot_0 : Port { address : (& address).clone(), slot : Slot::SLOT_0 }
+                      slot_0
+                    :
+                      Port
+                        {
+                          address : (& address).clone()
+                        ,
+                          slot : Slot::SLOT_0
+                        }
                   ,
-                    slot_1 : Port { address : (& address).clone(), slot : Slot::SLOT_1 }
+                      slot_1
+                    :
+                      Port
+                        {
+                          address : (& address).clone()
+                        ,
+                          slot : Slot::SLOT_1
+                        }
                   ,
-                    slot_2 : Port { address : (& address).clone(), slot : Slot::SLOT_2 }
+                      slot_2
+                    :
+                      Port
+                        {
+                          address : (& address).clone()
+                        ,
+                          slot : Slot::SLOT_2
+                        }
                   ,
                     kind : kind
                   }
@@ -276,7 +318,9 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
       {
         let & mut ref net_immutable = net
       ;
-        kind(net_immutable, x.clone()).clone() == kind(net_immutable, y.clone()).clone()
+          kind(net_immutable, x.clone()).clone()
+        ==
+          kind(net_immutable, y.clone()).clone()
       }
       {
         {
@@ -286,7 +330,13 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
               {
                 let & mut ref net_immutable = net
               ;
-                enter(net_immutable, Port { address : x.clone(), slot : Slot::SLOT_1 }).clone()
+                enter
+                  (
+                    net_immutable
+                  ,
+                    Port { address : x.clone(), slot : Slot::SLOT_1 }
+                  )
+                .clone()
               }
         ;
           let
@@ -295,7 +345,13 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
               {
                 let & mut ref net_immutable = net
               ;
-                enter(net_immutable, Port { address : y.clone(), slot : Slot::SLOT_1 }).clone()
+                enter
+                  (
+                    net_immutable
+                  ,
+                    Port { address : y.clone(), slot : Slot::SLOT_1 }
+                  )
+                .clone()
               }
         ;
           link(net, & p_0, & p_1).run()
@@ -308,7 +364,13 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
               {
                 let & mut ref net_immutable = net
               ;
-                enter(net_immutable, Port { address : x.clone(), slot : Slot::SLOT_2 }).clone()
+                enter
+                  (
+                    net_immutable
+                  ,
+                    Port { address : x.clone(), slot : Slot::SLOT_2 }
+                  )
+                .clone()
               }
         ;
           let
@@ -317,7 +379,12 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
               {
                 let & mut ref net_immutable = net
               ;
-                enter(net_immutable, Port { address : y.clone(), slot : Slot::SLOT_2 }).clone()
+                enter
+                  (
+                    net_immutable,
+                    Port { address : y.clone(), slot : Slot::SLOT_2 }
+                  )
+                .clone()
               }
         ;
           link(net, & p_0, & p_1).run()
@@ -374,10 +441,17 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
               {
                 let & mut ref net_immutable = net
               ;
-                enter(net_immutable, Port { address : x.clone(), slot : Slot::SLOT_1 }).clone()
+                enter
+                  (
+                    net_immutable
+                  ,
+                    Port { address : x.clone(), slot : Slot::SLOT_1 }
+                  )
+                .clone()
               }
         ;
-          link(net, & Port { address : b.clone(), slot : Slot::SLOT_0 }, & t).run()
+          link(net, & Port { address : b.clone(), slot : Slot::SLOT_0 }, & t)
+          .run()
         }
       ;
         {
@@ -387,10 +461,17 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
               {
                 let & mut ref net_immutable = net
               ;
-                enter(net_immutable, Port { address : x.clone(), slot : Slot::SLOT_2 }).clone()
+                enter
+                  (
+                    net_immutable
+                  ,
+                    Port { address : x.clone(), slot : Slot::SLOT_2 }
+                  )
+                .clone()
               }
         ;
-          link(net, & Port { address : y.clone(), slot : Slot::SLOT_0 }, & t).run()
+          link(net, & Port { address : y.clone(), slot : Slot::SLOT_0 }, & t)
+          .run()
         }
       ;
         {
@@ -400,10 +481,17 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
               {
                 let & mut ref net_immutable = net
               ;
-                enter(net_immutable, Port { address : y.clone(), slot : Slot::SLOT_1 }).clone()
+                enter
+                  (
+                    net_immutable
+                  ,
+                    Port { address : y.clone(), slot : Slot::SLOT_1 }
+                  )
+                .clone()
               }
         ;
-          link(net, & Port { address : a.clone(), slot : Slot::SLOT_0 }, & t).run()
+          link(net, & Port { address : a.clone(), slot : Slot::SLOT_0 }, & t)
+          .run()
         }
       ;
         {
@@ -413,10 +501,17 @@ pub fn rewrite(net : & mut Net, x : & Address, y : & Address) -> Effect<()>
               {
                 let & mut ref net_immutable = net
               ;
-                enter(net_immutable, Port { address : y.clone(), slot : Slot::SLOT_2 }).clone()
+                enter
+                  (
+                    net_immutable
+                  ,
+                    Port { address : y.clone(), slot : Slot::SLOT_2 }
+                  )
+                .clone()
               }
         ;
-          link(net, & Port { address : x.clone(), slot : Slot::SLOT_0 }, & t).run()
+          link(net, & Port { address : x.clone(), slot : Slot::SLOT_0 }, & t)
+          .run()
         }
       ;
         link
