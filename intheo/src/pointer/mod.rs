@@ -1,7 +1,9 @@
 use crate::effect;
 
+use effect::Effect;
+
 /// 更新する。
-pub fn write<T>(pointer : & mut T, value : T) -> effect::Effect<()>
+pub fn write<T>(pointer : & mut T, value : T) -> Effect<()>
   {
-    effect::Effect { value : * pointer = value }
+    Effect { value : * pointer = value }
   }
