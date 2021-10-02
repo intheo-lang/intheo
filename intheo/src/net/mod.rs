@@ -572,11 +572,58 @@ fn reduce
   ,
     next : & mut Port
   ,
-    prev : & mut Port
-  ,
     back : & mut Port
   )
 -> Effect<()>
   {
-    Effect { value : () }
+    if
+      {
+        let & mut Port { address : ref mut address, slot : _ } = next
+      ;
+        let & mut Address { value : ref mut address_value } = address
+      ;
+        * address_value > 0
+      }
+      {
+        let
+            prev
+          =
+            {
+              let & mut ref net_immutable = net
+            ;
+              let & mut ref next_immutable = next
+            ;
+              enter(net_immutable, next_immutable.clone())
+            }
+      ;
+        if
+          {
+            let & mut Port { address : _, slot : ref mut slot } = next
+          ;
+            * slot != Slot::SLOT_0
+          }
+          {
+            if
+              {
+                let & Port { address : ref address, slot : ref slot } = prev
+              ;
+                let & Address { value : ref address_value } = address
+              ;
+                * address_value > 0 && * slot == Slot::SLOT_0
+              }
+              {
+                Effect { value : () }
+              }
+            else
+              {
+                Effect { value : () }
+              }
+          }
+        else
+          {
+            Effect { value : () }
+          }
+      }
+    else
+      { Effect { value : () } }
   }
