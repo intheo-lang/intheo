@@ -704,7 +704,33 @@ fn reduce
           }
         else
           {
-            Effect { value : () }
+            {
+              let Port { address : _, slot : slot } = (& next).clone()
+            ;
+              vector::push(exit, slot).run()
+            }
+          ;
+            let
+                next_new
+              =
+                {
+                  let & mut ref net_immutable = net
+                ;
+                  let Port { address : address, slot : _ } = next
+                ;
+                  enter(net_immutable, Port { address : address, slot : Slot::SLOT_0 }).clone()
+                }
+          ;
+            {
+              let
+                  & mut Statics { loops : ref mut loops, rules : _ }
+                =
+                  statics
+            ;
+              pointer::write(loops, * loops + 1).run()
+            }
+          ;
+            reduce(net, statics, warp, exit, next_new)
           }
       }
     else
