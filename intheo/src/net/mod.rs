@@ -576,11 +576,11 @@ fn reduce
   {
     if
       {
-        let Port { address : address, slot : slot } = (& next).clone()
+        let Port { address : address, slot : _ } = (& next).clone()
       ;
         let Address { value : address_value } = address
       ;
-        address_value > 0 || slot != Slot::SLOT_0
+        address_value > 0
       }
       {
         let
@@ -734,5 +734,45 @@ fn reduce
           }
       }
     else
-      { Effect { value : () } }
+      {
+        if
+          {
+            let Port { address : _, slot : slot } = (& next).clone()
+          ;
+            slot != Slot::SLOT_0
+          }
+          {
+            {
+              let Port { address : _, slot : slot } = (& next).clone()
+            ;
+              vector::push(exit, slot).run()
+            }
+          ;
+            let
+                next_new
+              =
+                {
+                  let & mut ref net_immutable = net
+                ;
+                  let Port { address : address, slot : _ } = next
+                ;
+                  enter(net_immutable, Port { address : address, slot : Slot::SLOT_0 }).clone()
+                }
+          ;
+            {
+              let
+                  & mut Statics { loops : ref mut loops, rules : _ }
+                =
+                  statics
+            ;
+              pointer::write(loops, * loops + 1).run()
+            }
+          ;
+            reduce(net, statics, warp, exit, next_new)
+          }
+        else
+          {
+            Effect { value : () }
+          }
+      }
   }
