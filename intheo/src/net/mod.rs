@@ -621,7 +621,10 @@ fn reduce
                     back
                   =
                     {
-                      let Port { address : address, slot : _ } = (& prev).clone()
+                      let
+                          Port { address : address, slot : _ }
+                        =
+                          (& prev).clone()
                     ;
                       match vector::pop(exit).run()
                         {
@@ -634,7 +637,12 @@ fn reduce
                                 (
                                   net_immutable
                                 ,
-                                  Port { address : address.clone(), slot : slot }
+                                  Port
+                                    {
+                                      address : address.clone()
+                                    ,
+                                      slot : slot
+                                    }
                                 )
                               .clone()
                             }
@@ -676,7 +684,9 @@ fn reduce
                 {
                   let Port { address : address, slot : _ } = (& next).clone()
                 ;
-                  vector::push(warp, Port { address : address, slot : Slot::SLOT_2 }).run()
+                  vector::push
+                    (warp, Port { address : address, slot : Slot::SLOT_2 })
+                  .run()
                 }
               ;
                 let
@@ -687,7 +697,13 @@ fn reduce
                     ;
                       let Port { address : address, slot : _ } = next
                     ;
-                      enter(net_immutable, Port { address : address, slot : Slot::SLOT_1 }).clone()
+                      enter
+                        (]
+                          net_immutable
+                        ,
+                          Port { address : address, slot : Slot::SLOT_1 }
+                        )
+                      .clone()
                     }
               ;
                 {
@@ -718,7 +734,13 @@ fn reduce
                 ;
                   let Port { address : address, slot : _ } = next
                 ;
-                  enter(net_immutable, Port { address : address, slot : Slot::SLOT_0 }).clone()
+                  enter
+                    (
+                      net_immutable
+                    ,
+                      Port { address : address, slot : Slot::SLOT_0 }
+                    )
+                  .clone()
                 }
           ;
             {
@@ -756,7 +778,13 @@ fn reduce
                 ;
                   let Port { address : address, slot : _ } = next
                 ;
-                  enter(net_immutable, Port { address : address, slot : Slot::SLOT_0 }).clone()
+                  enter
+                    (
+                      net_immutable
+                    ,
+                      Port { address : address, slot : Slot::SLOT_0 }
+                    )
+                  .clone()
                 }
           ;
             {
