@@ -698,7 +698,7 @@ fn reduce
                       let Port { address : address, slot : _ } = next
                     ;
                       enter
-                        (]
+                        (
                           net_immutable
                         ,
                           Port { address : address, slot : Slot::SLOT_1 }
@@ -800,7 +800,237 @@ fn reduce
           }
         else
           {
-            Effect { value : () }
+            match vector::pop(warp).run()
+              {
+                  Some(warp_element)
+                =>
+                  {
+                    let
+                        next
+                      =
+                        {
+                          let & mut ref net_immutable = net
+                        ;
+                          enter(net_immutable, warp_element).clone()
+                        }
+                  ;
+                    let
+                        prev
+                      =
+                        {
+                          let & mut ref net_immutable = net
+                        ;
+                          enter(net_immutable, (& next).clone()).clone()
+                        }
+                  ;
+                    if
+                      {
+                        let
+                            Port { address : _, slot : slot }
+                          =
+                            (& next).clone()
+                      ;
+                        slot == Slot::SLOT_0
+                      }
+                      {
+                        if
+                          {
+                            let
+                                Port { address : address, slot : slot }
+                              =
+                                (& prev).clone()
+                          ;
+                            let Address { value : address_value } = address
+                          ;
+                            address_value > 0 && slot == Slot::SLOT_0
+                          }
+                          {
+                            {
+                              let
+                                  & mut
+                                    Statics
+                                      { loops : _, rules : ref mut rules }
+                                =
+                                  statics
+                            ;
+                              pointer::write(rules, * rules + 1)
+                            }
+                          ;
+                            let
+                                back
+                              =
+                                {
+                                  let
+                                      Port { address : address, slot : _ }
+                                    =
+                                      (& prev).clone()
+                                ;
+                                  match vector::pop(exit).run()
+                                    {
+                                        Some(slot)
+                                      =>
+                                        {
+                                          let & mut ref net_immutable = net
+                                        ;
+                                          enter
+                                            (
+                                              net_immutable
+                                            ,
+                                              Port
+                                                {
+                                                  address : address.clone()
+                                                ,
+                                                  slot : slot
+                                                }
+                                            )
+                                          .clone()
+                                        }
+                                    ,
+                                        None
+                                      =>
+                                        panic!("happened an impossible case")
+                                    }
+                                }
+                          ;
+                            {
+                              let
+                                  Port { address : next_address, slot : _ }
+                                =
+                                  next
+                            ;
+                              let
+                                  Port { address : prev_address, slot : _ }
+                                =
+                                  prev
+                            ;
+                              rewrite(net, & prev_address, & next_address)
+                              .run()
+                            }
+                          ;
+                            let
+                                next_new
+                              =
+                                {
+                                  let & mut ref net_immutable = net
+                                ;
+                                  enter(net_immutable, back).clone()
+                                }
+                          ;
+                            {
+                              let
+                                  & mut
+                                    Statics
+                                      { loops : ref mut loops, rules : _ }
+                                =
+                                  statics
+                            ;
+                              pointer::write(loops, * loops + 1).run()
+                            }
+                          ;
+                            reduce(net, statics, warp, exit, next_new)
+                          }
+                        else
+                          {
+                            {
+                              let
+                                  Port { address : address, slot : _ }
+                                =
+                                  (& next).clone()
+                            ;
+                              vector::push
+                                (
+                                  warp
+                                ,
+                                  Port
+                                    { address : address, slot : Slot::SLOT_2 }
+                                )
+                              .run()
+                            }
+                          ;
+                            let
+                                next_new
+                              =
+                                {
+                                  let & mut ref net_immutable = net
+                                ;
+                                  let
+                                      Port { address : address, slot : _ }
+                                    =
+                                      next
+                                ;
+                                  enter
+                                    (
+                                      net_immutable
+                                    ,
+                                      Port
+                                        {
+                                          address : address
+                                        ,
+                                          slot : Slot::SLOT_1
+                                        }
+                                    )
+                                  .clone()
+                                }
+                          ;
+                            {
+                              let
+                                  & mut
+                                    Statics
+                                      { loops : ref mut loops, rules : _ }
+                                =
+                                  statics
+                            ;
+                              pointer::write(loops, * loops + 1).run()
+                            }
+                          ;
+                            reduce(net, statics, warp, exit, next_new)
+                          }
+                      }
+                    else
+                      {
+                        {
+                          let
+                              Port { address : _, slot : slot }
+                            =
+                              (& next).clone()
+                        ;
+                          vector::push(exit, slot).run()
+                        }
+                      ;
+                        let
+                            next_new
+                          =
+                            {
+                              let & mut ref net_immutable = net
+                            ;
+                              let Port { address : address, slot : _ } = next
+                            ;
+                              enter
+                                (
+                                  net_immutable
+                                ,
+                                  Port
+                                    { address : address, slot : Slot::SLOT_0 }
+                                )
+                              .clone()
+                            }
+                      ;
+                        {
+                          let
+                              & mut
+                                Statics { loops : ref mut loops, rules : _ }
+                            =
+                              statics
+                        ;
+                          pointer::write(loops, * loops + 1).run()
+                        }
+                      ;
+                        reduce(net, statics, warp, exit, next_new)
+                      }
+                  }
+              ,
+                None => Effect { value : () }
+              }
           }
       }
   }
