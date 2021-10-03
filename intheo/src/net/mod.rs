@@ -666,14 +666,40 @@ fn reduce
                     =
                       statics
                 ;
-                  pointer::write(loops, * loops + 1)
+                  pointer::write(loops, * loops + 1).run()
                 }
               ;
                 reduce(net, statics, warp, exit, next_new)
               }
             else
               {
-                Effect { value : () }
+                {
+                  let Port { address : address, slot : _ } = (& next).clone()
+                ;
+                  vector::push(warp, Port { address : address, slot : Slot::SLOT_2 }).run()
+                }
+              ;
+                let
+                    next_new
+                  =
+                    {
+                      let & mut ref net_immutable = net
+                    ;
+                      let Port { address : address, slot : _ } = next
+                    ;
+                      enter(net_immutable, Port { address : address, slot : Slot::SLOT_1 }).clone()
+                    }
+              ;
+                {
+                  let
+                      & mut Statics { loops : ref mut loops, rules : _ }
+                    =
+                      statics
+                ;
+                  pointer::write(loops, * loops + 1).run()
+                }
+              ;
+                reduce(net, statics, warp, exit, next_new)
               }
           }
         else
