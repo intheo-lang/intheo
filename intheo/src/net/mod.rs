@@ -660,6 +660,15 @@ fn reduce
                       enter(net_immutable, back).clone()
                     }
               ;
+                {
+                  let
+                      & mut Statics { loops : ref mut loops, rules : _ }
+                    =
+                      statics
+                ;
+                  pointer::write(loops, * loops + 1)
+                }
+              ;
                 reduce(net, statics, warp, exit, next_new)
               }
             else
