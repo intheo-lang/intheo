@@ -566,19 +566,19 @@ fn reduce
   ,
     statics : & mut Statics
   ,
-    warp : & mut Vector<Port>
+    warp : Vector<Port>
   ,
-    exit : & mut Vector<Address>
+    exit : Vector<Address>
   ,
-    next : & mut Port
+    next : & Port
   )
 -> Effect<()>
   {
     if
       {
-        let & mut Port { address : ref mut address, slot : ref mut slot } = next
+        let & Port { address : ref address, slot : ref slot } = next
       ;
-        let & mut Address { value : ref mut address_value } = address
+        let & Address { value : ref address_value } = address
       ;
         * address_value > 0 || * slot != Slot::SLOT_0
       }
@@ -589,14 +589,12 @@ fn reduce
             {
               let & mut ref net_immutable = net
             ;
-              let & mut ref next_immutable = next
-            ;
-              enter(net_immutable, next_immutable.clone())
+              enter(net_immutable, next.clone())
             }
       ;
         if
           {
-            let & mut Port { address : _, slot : ref mut slot } = next
+            let & Port { address : _, slot : ref slot } = next
           ;
             * slot == Slot::SLOT_0
           }
