@@ -193,9 +193,7 @@ pub fn new_node(net : & mut Net, kind : Kind) -> Effect<Address>
   {
     let & mut Net { nodes : ref mut nodes, reuse : ref mut reuse } = net
   ;
-    let option_address = vector::pop(reuse).run()
-  ;
-    match option_address
+    match vector::pop(reuse).run()
       {
           Some(address)
         =>
