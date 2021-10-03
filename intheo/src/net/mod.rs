@@ -566,21 +566,21 @@ fn reduce
   ,
     statics : & mut Statics
   ,
-    warp : Vector<Port>
+    warp : & mut Vector<Port>
   ,
-    exit : Vector<Address>
+    exit : & mut Vector<Slot>
   ,
-    next : & Port
+    next : Port
   )
 -> Effect<()>
   {
     if
       {
-        let & Port { address : ref address, slot : ref slot } = next
+        let Port { address : address, slot : slot } = (& next).clone()
       ;
-        let & Address { value : ref address_value } = address
+        let Address { value : address_value } = address
       ;
-        * address_value > 0 || * slot != Slot::SLOT_0
+        address_value > 0 || slot != Slot::SLOT_0
       }
       {
         let
@@ -589,32 +589,78 @@ fn reduce
             {
               let & mut ref net_immutable = net
             ;
-              enter(net_immutable, next.clone())
+              enter(net_immutable, (& next).clone()).clone()
             }
       ;
         if
           {
-            let & Port { address : _, slot : ref slot } = next
+            let Port { address : _, slot : slot } = (& next).clone()
           ;
-            * slot == Slot::SLOT_0
+            slot == Slot::SLOT_0
           }
           {
             if
               {
-                let & Port { address : ref address, slot : ref slot } = prev
+                let Port { address : address, slot : slot } = (& prev).clone()
               ;
-                let & Address { value : ref address_value } = address
+                let Address { value : address_value } = address
               ;
-                * address_value > 0 && * slot == Slot::SLOT_0
+                address_value > 0 && slot == Slot::SLOT_0
               }
               {
                 {
-                  let & mut Statics { loops : _, rules : ref mut rules } = statics
+                  let
+                      & mut Statics { loops : _, rules : ref mut rules }
+                    =
+                      statics
                 ;
                   pointer::write(rules, * rules + 1)
                 }
               ;
-                Effect { value : () }
+                let
+                    back
+                  =
+                    {
+                      let Port { address : address, slot : _ } = (& prev).clone()
+                    ;
+                      match vector::pop(exit).run()
+                        {
+                            Some(slot)
+                          =>
+                            {
+                              let & mut ref net_immutable = net
+                            ;
+                              enter
+                                (
+                                  net_immutable
+                                ,
+                                  Port { address : address.clone(), slot : slot }
+                                )
+                              .clone()
+                            }
+                        ,
+                          None => panic!("happened an impossible case")
+                        }
+                    }
+              ;
+                {
+                  let Port { address : next_address, slot : _ } = next
+                ;
+                  let Port { address : prev_address, slot : _ } = prev
+                ;
+                  rewrite(net, & prev_address, & next_address).run()
+                }
+              ;
+                let
+                    next_new
+                  =
+                    {
+                      let & mut ref net_immutable = net
+                    ;
+                      enter(net_immutable, back).clone()
+                    }
+              ;
+                reduce(net, statics, warp, exit, next_new)
               }
             else
               {
