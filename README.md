@@ -29,3 +29,49 @@ Intheo は 3 つの段階を経て実装される予定です。
 Intheo は、宇宙の階層を明示的に取り扱い、数量型でデータの複製と破棄をコントロールし、自分型で帰納型を表現する。
 
 Intheo の型理論は、 `Γ ⊢ x : T` という形の型判断しか持たない。また、型判断 `Γ ⊢ x : T` は推論木と一対一対応する。すなわち、 `x` は証明の過程を正確に表現している。
+
+## Intheo の簡約器
+
+Intheo の簡約機は [symmetric interaction calculus](https://github.com/Hexirp/Symmetric-Interaction-Calculus) を使って書かれます。
+
+### 構文
+
+構文は次の通りです。
+
+```
+t, s = x                          -- variable
+     | lambda x => t              -- abstraction
+     | t s                        -- application
+     | { t, s }                   -- copied pair
+     | match t with { x, y } => s -- matching / copying
+```
+
+スコープは一つしかないことに注意してください。すなわち、 `match t with { x, y } => s` と書いた時に `t` の中に `x` が現れたり、 `t (lambda x => s)` と書いた時に `t` の中に `x` が現れたりしても問題ありません。
+
+### 簡約
+
+簡約のルールは次の通りです。
+
+```
+-- rule 0 (lambda application)
+
+(lambda x => t) s
+-----------------
+t [ x / s ]
+
+-- rule 1 (pair projection)
+
+match { u, v } with { x, y } => t
+---------------------------------
+t [ x / u ] [ y / v ]
+
+-- rule 2 (pair application)
+
+{ u, v } t
+------------------------------------- (`x` and `y` are fresh)
+match t with { x, y } => { u x, v y }
+
+match lambda x => t with { p, q } => s
+--------------------------------------------------------------------------------------- (`y` and `z` are fresh)
+match t with { p, q } => s [ p / lambda y => p ] [ q / lambda z => q ] [ x / { y, z } ]
+```
