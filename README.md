@@ -71,6 +71,8 @@ t [ x / u ] [ y / v ]
 ------------------------------------- (`x` and `y` are fresh)
 match t with { x, y } => { u x, v y }
 
+-- rule 3 (lambda projection)
+
 match lambda x => t with { p, q } => s
 --------------------------------------------------------------------------------------- (`y` and `z` are fresh)
 match t with { p, q } => s [ p / lambda y => p ] [ q / lambda z => q ] [ x / { y, z } ]
