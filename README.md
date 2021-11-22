@@ -78,6 +78,57 @@ match lambda x => t with { p, q } => s
 match t with { p, q } => s [ p / lambda y => p ] [ q / lambda z => q ] [ x / { y, z } ]
 ```
 
+## Intheo の型理論
+
+Intheo の型理論は、次の記述を可能にするつもりである。
+
+* 適用 (application)
+  * pure type system をベースとする。
+* 抽象 (abstraction)
+  * pure type system をベースとする。
+* 多相型 (polymorphic type)
+  * pure type system をベースとする。
+* 型関数 (type function)
+  * pure type system をベースとする。
+* 依存型 (dependent type)
+  * pure type system をベースとする。
+* 単一型 (unit type)
+  * 組み込む。
+* 空型 (void type)
+  * 組み込む。
+* 直積型 (product type)
+  * 依存直和型を使って実装する。
+* 直和型 (sum type)
+  * 組み込む。
+* 関数型 (function type)
+  * 依存関数型を使って実装する。
+* 依存直積型 (dependent product type)
+  * 依存関数型を使って実装する。
+* 依存直和型 (dependent sum type)
+  * 組み込む。
+* 依存関数型 (dependent function type)
+  * pure type system をベースとする。
+* 帰納型 (inductive type)
+  * ウ型を使って定義する。なお、 "[W-types: good news and bad news](https://mazzo.li/epilogue/index.html%3Fp=324.html)" に記載されているように、ウ型を使ってリスト型を定義することも可能である。なお、ウ型は関数外延性が必要なのが難点とされているが、 cubical type theory を組み込むので問題ない。なお、一時期は [Yatima 言語](https://github.com/yatima-inc/yatima)に倣って自分型を使うことも考えたが、[考察](https://github.com/Hexirp/blog)の結果で、自分型が帰納型の実装に使えるのは偶然的なものであるという結論に至ったので、ウ型を使うことにした。
+* 余帰納型 (coinductive type)
+  * ム型を使って定義する。
+* ウ型 (W-type)
+  * 組み込む。
+* ム型 (M-type)
+  * 組み込む。
+* 帰納帰納型 (inductive-inductive type)
+  * "[inductive-inductive type in nLab](https://ncatlab.org/nlab/show/inductive-inductive+type)" によると "[Constructing Inductive-Inductive Types in Cubical Type Theory (Jasper Hugunin)](https://link.springer.com/chapter/10.1007/978-3-030-17127-8_17)" が homotopy type theory に親和的な形で帰納帰納型から帰納型への翻訳を定義している。これを利用する。
+* 道型 (path type)
+  * cubical type theory を組み込む。
+* 高階帰納型 (higher inductive type)
+  * 商型を使って定義する。
+* 高階帰納帰納型 (higher inductive-inductive type)
+  * 商型を使って定義できるか……？
+* 商型 (quotient type)
+  * 組み込む。
+* 線形型 (linear type)
+  * quantitative type theory を組み込む。
+
 ## Intheo のモジュール
 
 `A.B.C.x` という識別子があるとします。
