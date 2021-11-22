@@ -117,7 +117,7 @@ Intheo の型理論は、次の記述を可能にするつもりである。
 * ム型 (M-type)
   * 組み込む。
 * 帰納帰納型 (inductive-inductive type)
-  * "[inductive-inductive type in nLab](https://ncatlab.org/nlab/show/inductive-inductive+type)" によると "[Constructing Inductive-Inductive Types in Cubical Type Theory (Jasper Hugunin)](https://link.springer.com/chapter/10.1007/978-3-030-17127-8_17)" が homotopy type theory に親和的な形で帰納帰納型から帰納型への翻訳を定義している。これを利用する。
+  * "[inductive-inductive type in nLab](https://ncatlab.org/nlab/show/inductive-inductive+type)" によると "[Constructing Inductive-Inductive Types in Cubical Type Theory](https://link.springer.com/chapter/10.1007/978-3-030-17127-8_17)" (Jasper Hugunin) が homotopy type theory に親和的な形で帰納帰納型から帰納型への翻訳を定義している。これを利用する。
 * 道型 (path type)
   * cubical type theory を組み込む。
 * 高階帰納型 (higher inductive type)
