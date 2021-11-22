@@ -123,7 +123,7 @@ Intheo の型理論は、次の記述を可能にするつもりである。
 * 高階帰納型 (higher inductive type)
   * 商型を使って定義する。
 * 高階帰納帰納型 (higher inductive-inductive type)
-  * 商型を使って定義できるか……？
+  * 帰納帰納型と商型を使って定義できるか……？
 * 商型 (quotient type)
   * 組み込む。
 * 線形型 (linear type)
