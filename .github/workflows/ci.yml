@@ -1,0 +1,13 @@
+name: CI
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 8 1 * *"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cd intheo && cargo build
