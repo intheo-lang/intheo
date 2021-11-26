@@ -24,12 +24,6 @@ Intheo は 3 つの段階を経て実装される予定です。
 2. Rust により書かれたコンパイラ
 3. Intheo 自身により書かれたコンパイラ
 
-## Intheo の理論
-
-Intheo は、宇宙の階層を明示的に取り扱い、数量型でデータの複製と破棄をコントロールし、自分型で帰納型を表現する。
-
-Intheo の型理論は、 `Γ ⊢ x : T` という形の型判断しか持たない。また、型判断 `Γ ⊢ x : T` は推論木と一対一対応する。すなわち、 `x` は証明の過程を正確に表現している。
-
 ## Intheo の簡約器
 
 Intheo の簡約機は [symmetric interaction calculus](https://github.com/Hexirp/Symmetric-Interaction-Calculus) を使って書かれます。
@@ -77,6 +71,12 @@ match lambda x => t with { p, q } => s
 --------------------------------------------------------------------------------------- (`y` and `z` are fresh)
 match t with { p, q } => s [ p / lambda y => p ] [ q / lambda z => q ] [ x / { y, z } ]
 ```
+
+## Intheo の理論
+
+Intheo は、宇宙の階層を明示的に取り扱い、数量型でデータの複製と破棄をコントロールし、自分型で帰納型を表現する。
+
+Intheo の型理論は、 `Γ ⊢ x : T` という形の型判断しか持たない。また、型判断 `Γ ⊢ x : T` は推論木と一対一対応する。すなわち、 `x` は証明の過程を正確に表現している。
 
 ## Intheo の型理論
 
