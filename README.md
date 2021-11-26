@@ -74,11 +74,55 @@ match t with { p, q } => s [ p / lambda y => p ] [ q / lambda z => q ] [ x / { y
 
 ## Intheo の理論
 
-Intheo は、宇宙の階層を明示的に取り扱い、数量型でデータの複製と破棄をコントロールし、自分型で帰納型を表現する。
+Intheo の型理論は、 `Γ ⊢ A type` と `Γ ⊢ x : A` という形の型判断しか持たない。また、型判断は推論木と一対一対応する。
 
-Intheo の型理論は、 `Γ ⊢ x : T` という形の型判断しか持たない。また、型判断 `Γ ⊢ x : T` は推論木と一対一対応する。すなわち、 `x` は証明の過程を正確に表現している。
+### 環境
 
-## Intheo の型理論
+`Γ` が環境であるならば、 `Γ, A type` も環境である。
+
+`Γ` が環境であるならば、 `Γ, x : A` も環境である。
+
+### 型判断
+
+`Γ ⊢ A type` は、 `Γ` において `A` が型であることを表す。
+
+`Γ ⊢ x : A` は、 `Γ` において `x` が `A` であることを表す。
+
+### 代入
+
+`A type, Γ ⊢ J` と `⊢ A0 type` から `Γ [A ← A0] ⊢ J [A ← A0]` を導出できる。
+
+`x : A, Γ ⊢ J` と `⊢ x0 : A` から `Γ [x ← x0] ⊢ J [x ← x0]` を導出できる。
+
+### 多重度の型
+
+`Multiplicity type` を導出できる。
+
+### 関数の型
+
+`A type ⊢ B` から `(pi A type -> B) type` を導出できる。
+
+`A type` と `x_multiplicity : Multiplicity` と `x : A ⊢ B type` から `(pi x : A & x_multiplicity -> B) type` を導出できる。
+
+### 判断同値の型の型
+
+`Judgemental_Type_Equality_Kind type` を導出できる。
+
+`Judgemental_Equality_Kind type` を導出できる。
+
+### 判断同値の型
+
+`Judgemental_Type_Equality : (pi A type -> pi B type -> Judgemental_Type_Equality_Kind)` を導出できる。
+
+`Judgemental_Equality : (pi A type -> pi x : A -> pi y : A -> Judgemental_Equality_Kind)` を導出できる。
+
+### 判断同値
+
+### 判断同値と関数の型
+
+### 関数
+
+### 古い
 
 Intheo の型理論は、次の記述を可能にするつもりである。
 
