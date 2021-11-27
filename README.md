@@ -76,6 +76,8 @@ match t with { p, q } => s [ p / lambda y => p ] [ q / lambda z => q ] [ x / { y
 
 Intheo の型理論は、 `Γ ⊢ x : A & x_Multiplicity` という形の型判断しか持たない。また、型判断は推論木と一対一対応する。
 
+シークエント計算を元にしている。判断同値も値である。定義は変数と判断同値の組合せで表される。
+
 Intheo の理論では、次の記述を可能にするつもりである。
 
 * 適用 (application)
