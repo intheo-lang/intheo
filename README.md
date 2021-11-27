@@ -106,15 +106,15 @@ Intheo の型理論は、 `Γ ⊢ A type` と `Γ ⊢ x : A` という形の型�
 
 ### 判断同値の型の型
 
-`Judgemental_Type_Equality_Kind type` を導出できる。
+`Judgemental_Type_Equality_Type type` を導出できる。
 
-`Judgemental_Equality_Kind type` を導出できる。
+`Judgemental_Equality_Type type` を導出できる。
 
 ### 判断同値の型
 
-`Judgemental_Type_Equality : (pi A type -> pi B type -> Judgemental_Type_Equality_Kind)` を導出できる。
+`Judgemental_Type_Equality : (pi A type -> pi B type -> Judgemental_Type_Equality_Type)` を導出できる。
 
-`Judgemental_Equality : (pi A type -> pi x : A -> pi y : A -> Judgemental_Equality_Kind)` を導出できる。
+`Judgemental_Equality : (pi A type -> pi x : A -> pi y : A -> Judgemental_Equality_Type)` を導出できる。
 
 ### 判断同値
 
