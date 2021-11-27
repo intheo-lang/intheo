@@ -80,7 +80,7 @@ Intheo の型理論は、 `Γ ⊢ x : A & x_Multiplicity` という形の型判�
 
 ` ` は環境である。
 
-`Γ` が環境であるならば、 `Γ, x : A` も環境である。
+`Γ` が環境であるならば、 `Γ, x : A & x_Multiplicity` も環境である。
 
 ### 型判断
 
@@ -88,15 +88,15 @@ Intheo の型理論は、 `Γ ⊢ x : A & x_Multiplicity` という形の型判�
 
 ### 代入
 
-`x : A & x_Multiplicity, Γ ⊢ J` と `⊢ x_0 : A` から `Γ [x ← x_0] ⊢ J [x ← x_0]` を導出できる。
+`x : A & x_Multiplicity, Γ ⊢ J` と `⊢ x_0 : A` から `Γ [x ← x_0] ⊢ J [x ← x_0]` である。
 
 ### ソート
 
-`Sort : Sort` を導出できる。
+`Sort : Sort` である。
 
 ### 多重度の型
 
-`Multiplicity : Sort` を導出できる。
+`Multiplicity : Sort` である。
 
 ### 多重度
 
