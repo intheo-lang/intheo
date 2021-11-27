@@ -94,9 +94,13 @@ Intheo の型理論は、 `Γ ⊢ A type` と `Γ ⊢ x : A` という形の型�
 
 `x : A, Γ ⊢ J` と `⊢ x_0 : A` から `Γ [x ← x_0] ⊢ J [x ← x_0]` を導出できる。
 
-### 多重度の型
+### ソートの型
 
-`Multiplicity type` を導出できる。
+`Sort type`
+
+### ソート／多重度の型
+
+`Multiplicity : Sort` を導出できる。
 
 ### 関数の型
 
@@ -104,7 +108,7 @@ Intheo の型理論は、 `Γ ⊢ A type` と `Γ ⊢ x : A` という形の型�
 
 `A type` と `x_multiplicity : Multiplicity` と `x : A ⊢ B type` から `(pi x : A & x_multiplicity -> B) type` を導出できる。
 
-### 判断同値の型の型
+### ソート／判断同値の型の型
 
 `Judgemental_Type_Equality_Kind type` を導出できる。
 
