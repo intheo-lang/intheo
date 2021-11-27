@@ -100,9 +100,9 @@ Intheo の型理論は、 `Γ ⊢ A type` と `Γ ⊢ x : A` という形の型�
 
 ### 関数の型
 
-`A type ⊢ B` から `(pi A type -> B) type` を導出できる。
+`A type ⊢ B` から `(pi_type A type -> B) type` を導出できる。
 
-`A type` と `x_multiplicity : Multiplicity` と `x : A ⊢ B type` から `(pi x : A & x_multiplicity -> B) type` を導出できる。
+`A type` と `x_multiplicity : Multiplicity` と `x : A ⊢ B type` から `(pi_type x : A & x_multiplicity -> B) type` を導出できる。
 
 ### 判断同値の型の型
 
@@ -112,9 +112,9 @@ Intheo の型理論は、 `Γ ⊢ A type` と `Γ ⊢ x : A` という形の型�
 
 ### 判断同値の型
 
-`Judgemental_Type_Equality : (pi A type -> pi B type -> Judgemental_Type_Equality_Type)` を導出できる。
+`Judgemental_Type_Equality : (pi_type A type -> pi_type B type -> Judgemental_Type_Equality_Type)` を導出できる。
 
-`Judgemental_Equality : (pi A type -> pi x : A -> pi y : A -> Judgemental_Equality_Type)` を導出できる。
+`Judgemental_Equality : (pi_type A type -> pi_type x : A -> pi_type y : A -> Judgemental_Equality_Type)` を導出できる。
 
 ### 判断同値
 
