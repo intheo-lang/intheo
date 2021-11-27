@@ -110,7 +110,17 @@ Intheo の型理論は、 `Γ ⊢ x : A & x_Multiplicity` という形の型判�
 
 `Multiplicity.multiply : pi Multiplicity type -> pi Multiplicity type -> Multiplicity` を導出できる。
 
-`Multiplicity` と `Multiplicity.zero` と `Multiplicity.plus` は可換モノイドを作らなければならない。 `Multiplicity` と `Multiplicity.one` と `Multiplicity.multiply` はモノイドを作らなければならない。 `Multiplicity.plus` と `Multiplicity.multiply` は分配法則を満たさなければならない。 `Multiplicity.zero` は `Multiplicity.multiply` において零元でなければならない。 `Multiplicity.plus x y = Multiplicity.zero` と `x = Multiplicity.zero ∧ y = Multiplicity.zero` は同値でなければならない。 `Multiplicity.multiply x y = Multiplicity.zero` と `x = Multiplicity.zero ∨ y = Multiplicity.zero` は同値でなければならない。
+`Multiplicity` と `Multiplicity.zero` と `Multiplicity.plus` は可換モノイドを作らなければならない。
+
+`Multiplicity` と `Multiplicity.one` と `Multiplicity.multiply` はモノイドを作らなければならない。
+
+`Multiplicity.plus` と `Multiplicity.multiply` は分配法則を満たさなければならない。
+
+`Multiplicity.zero` は `Multiplicity.multiply` において零元でなければならない。
+
+`Multiplicity.plus x y = Multiplicity.zero` と `x = Multiplicity.zero ∧ y = Multiplicity.zero` は同値でなければならない。
+
+`Multiplicity.multiply x y = Multiplicity.zero` と `x = Multiplicity.zero ∨ y = Multiplicity.zero` は同値でなければならない。
 
 ### 関数の型
 
