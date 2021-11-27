@@ -118,6 +118,8 @@ Intheo の型理論は、 `Γ ⊢ A type` と `Γ ⊢ x : A` という形の型�
 
 ### 判断同値
 
+`x : A` から `Judgemental_Type_Equality.reflexivity` を……
+
 ### 判断同値と関数の型
 
 ### 関数
