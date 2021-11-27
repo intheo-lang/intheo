@@ -96,7 +96,11 @@ Intheo の型理論は、 `Γ ⊢ A type` と `Γ ⊢ x : A` という形の型�
 
 ### ソートの型
 
-`Sort type`
+`Sort type` を導出できる。
+
+### ソート
+
+`A : Sort` から `(A elaborate) type` を導出できる。
 
 ### ソート／多重度の型
 
@@ -106,19 +110,19 @@ Intheo の型理論は、 `Γ ⊢ A type` と `Γ ⊢ x : A` という形の型�
 
 `A type ⊢ B` から `(pi A type -> B) type` を導出できる。
 
-`A type` と `x_multiplicity : Multiplicity` と `x : A ⊢ B type` から `(pi x : A & x_multiplicity -> B) type` を導出できる。
+`A type` と `x_multiplicity : Multiplicity elaborate` と `x : A ⊢ B type` から `(pi x : A & x_multiplicity -> B) type` を導出できる。
 
 ### ソート／判断同値の型の型
 
-`Judgemental_Type_Equality_Kind type` を導出できる。
+`Judgemental_Type_Equality_Kind : Sort` を導出できる。
 
-`Judgemental_Equality_Kind type` を導出できる。
+`Judgemental_Equality_Kind : Sort` を導出できる。
 
 ### 判断同値の型
 
-`Judgemental_Type_Equality : (pi A type -> pi B type -> Judgemental_Type_Equality_Kind)` を導出できる。
+`Judgemental_Type_Equality : (pi A type -> pi B type -> Judgemental_Type_Equality_Kind elaborate)` を導出できる。
 
-`Judgemental_Equality : (pi A type -> pi x : A -> pi y : A -> Judgemental_Equality_Kind)` を導出できる。
+`Judgemental_Equality : (pi A type -> pi x : A -> pi y : A -> Judgemental_Equality_Kind elaborate)` を導出できる。
 
 ### 判断同値
 
