@@ -98,6 +98,20 @@ Intheo の型理論は、 `Γ ⊢ A type` と `Γ ⊢ x : A` という形の型�
 
 `Multiplicity type` を導出できる。
 
+### 多重度
+
+`Multiplicity.zero : Multiplicity` である。
+
+`Multiplicity.one : Multiplicity` である。
+
+`Multiplicity.omega : Multiplicity` である。
+
+`Multiplicity.plus : pi Multiplicity type -> pi Multiplicity type -> Multiplicity` を導出できる。
+
+`Multiplicity.multiply : pi Multiplicity type -> pi Multiplicity type -> Multiplicity` を導出できる。
+
+`Multiplicity` と `Multiplicity.zero` と `Multiplicity.plus` は可換モノイドを作らなければならない。 `Multiplicity` と `Multiplicity.one` と `Multiplicity.multiply` はモノイドを作らなければならない。 `Multiplicity.plus` と `Multiplicity.multiply` は分配法則を満たさなければならない。 `Multiplicity.zero` は `Multiplicity.multiply` において零元でなければならない。 `Multiplicity.plus x y = Multiplicity.zero` と `x = Multiplicity.zero ∧ y = Multiplicity.zero` は同値でなければならない。 `Multiplicity.multiply x y = Multiplicity.zero` と `x = Multiplicity.zero ∨ y = Multiplicity.zero` は同値でなければならない。
+
 ### 関数の型
 
 `A type ⊢ B` から `(pi A type -> B) type` を導出できる。
