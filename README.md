@@ -102,7 +102,7 @@ Intheo の型理論は、 `Γ ⊢ A type` と `Γ ⊢ x : A` という形の型�
 
 `A type ⊢ B` から `(pi_type A type -> B) type` を導出できる。
 
-`A type` と `x_multiplicity : Multiplicity` と `x : A ⊢ B type` から `(pi_type x : A & x_multiplicity -> B) type` を導出できる。
+`A type` と `x_Multiplicity : Multiplicity` と `x : A ⊢ B type` から `(pi_type x : A & x_Multiplicity -> B) type` を導出できる。
 
 ### 判断同値の型の型
 
