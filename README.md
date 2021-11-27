@@ -74,13 +74,9 @@ match t with { p, q } => s [ p / lambda y => p ] [ q / lambda z => q ] [ x / { y
 
 ## Intheo の理論
 
-Intheo は、宇宙の階層を明示的に取り扱い、数量型でデータの複製と破棄をコントロールし、自分型で帰納型を表現する。
+Intheo の型理論は、 `Γ ⊢ x : A & x_Multiplicity` という形の型判断しか持たない。また、型判断は推論木と一対一対応する。
 
-Intheo の型理論は、 `Γ ⊢ x : T` という形の型判断しか持たない。また、型判断 `Γ ⊢ x : T` は推論木と一対一対応する。すなわち、 `x` は証明の過程を正確に表現している。
-
-## Intheo の型理論
-
-Intheo の型理論は、次の記述を可能にするつもりである。
+Intheo の理論では、次の記述を可能にするつもりである。
 
 * 適用 (application)
   * pure type system をベースとする。
@@ -140,6 +136,78 @@ Intheo の型理論は、次の記述を可能にするつもりである。
   * 帰納帰納型と商型を使って定義できるか……？
 
 ちなみに、 "W-type" を "ウ型" と訳したのは "W" を "ウ" と読んだだけのことである。 "W 型" と訳することも検討したが "W" と "type" がハイフンで繋がれているという雰囲気が出せていないと感じた。また、 "M-type" を "ム型" に訳したのは、同様に "M" を "ム" と読んだだけのことである。 "ウ" と "ム" が 180 度だけ回転させた形になっているのは偶然である。
+
+### ソート
+
+`Sort : Sort` である。
+
+### 多重度の型
+
+`Multiplicity : Sort` である。
+
+### 多重度
+
+`Multiplicity.zero : Multiplicity` である。
+
+`Multiplicity.one : Multiplicity` である。
+
+`Multiplicity.omega : Multiplicity` である。
+
+`Multiplicity.plus : pi Multiplicity type -> pi Multiplicity type -> Multiplicity` を導出できる。
+
+`Multiplicity.multiply : pi Multiplicity type -> pi Multiplicity type -> Multiplicity` を導出できる。
+
+`Multiplicity` と `Multiplicity.zero` と `Multiplicity.plus` は可換モノイドを作らなければならない。
+
+`Multiplicity` と `Multiplicity.one` と `Multiplicity.multiply` はモノイドを作らなければならない。
+
+`Multiplicity.plus` と `Multiplicity.multiply` は分配法則を満たさなければならない。
+
+`Multiplicity.zero` は `Multiplicity.multiply` において零元でなければならない。
+
+`Multiplicity.plus x y = Multiplicity.zero` と `x = Multiplicity.zero ∧ y = Multiplicity.zero` は同値でなければならない。
+
+`Multiplicity.multiply x y = Multiplicity.zero` と `x = Multiplicity.zero ∨ y = Multiplicity.zero` は同値でなければならない。
+
+### レベルの型の型
+
+`Type_Maximum : Sort`
+
+### レベルの型
+
+`Level : Type_Maximum` である。
+
+### レベル
+
+レベルは整列集合でなければならない。
+
+### レベル述語の型
+
+`Level_Predicate : Sort` である。
+
+### 区間の型
+
+`Interval : Sort`
+
+### 区間
+
+区間はブール代数でなければならない。
+
+### 区間述語の型
+
+`Interval_Predicate`
+
+### 関数の型
+
+`A : Type i` かつ `x : A ⊢ B : Type j` のとき、 `(pi x : A -> B) : Type j` である。
+
+`i : Level ⊢ B : Type j` のとき、 `(pi i : Level -> B) : Type_Maximum` である。
+
+`A : Type_Maximum` かつ `x : A ⊢ B : Type j` のとき、 `(pi x : A -> B) : Type j` である。
+
+`i : Interval ⊢ B : Type j` のとき、 `(pi i : Interval -> B) : Type j` である。
+
+`i : Multiplicity ⊢ B : Type j` のとき、 `(pi i : Multiplicity -> B) : Type j` である。
 
 ## Intheo のモジュール
 
